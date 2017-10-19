@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Location.associate = models => {
     Location.hasMany(models.Route, {
-      foreignKey: "routeId",
+      foreignKey: "locationId",
       as: "routes",
     });
   };
