@@ -1,5 +1,5 @@
 Create a new model:
-`$ sequelize model:create --name Todo --content:string, complete:boolean`
+`$ sequelize model:create --name TodoItem --attributes content:string,complete:boolean'
 
 To enter Postgres CLI from terminal:
 `psql`

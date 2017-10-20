@@ -5,28 +5,21 @@ module.exports = {
     return Route.find({
       where: {
         id: req.params.routeId,
-        locationId: req.params.locationId,
-      },
+        locationId: req.params.locationId
+      }
     })
-      .then(route => {
-        if (!route) {
-          return err => res.status(400).send({message: "No route found"});
-        }
-        return route
-          .then(route => res.status(200).send(route))
-          .catch(err =>
-            res.status(400).send({message: "Something went wrong!"})
-          );
-      })
+      .then(route => res.status(200).send(route))
       .catch(err =>
-        res.status(400).send({message: "Something went wrong!" + req.body})
+        res
+          .status(400)
+          .send({ message: "Something went wrong! getting the data" })
       );
   },
 
   create(req, res) {
     return Route.create({
       title: req.body.title,
-      locationId: req.params.locationId,
+      locationId: req.params.locationId
     })
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
@@ -36,15 +29,15 @@ module.exports = {
     return Route.find({
       where: {
         id: req.params.routeId,
-        locationId: req.params.locationId,
-      },
+        locationId: req.params.locationId
+      }
     })
       .then(route => {
         if (!route) {
           return err => res.status(400).send(err);
         }
         return route
-          .update(req.body, {fields: Object.keys(req.body)})
+          .update(req.body, { fields: Object.keys(req.body) })
           .then(route => res.status(200).send(route))
           .catch(err => res.status(400).send(err));
       })
@@ -55,18 +48,17 @@ module.exports = {
     return Route.find({
       where: {
         id: req.params.routeId,
-        locationId: req.params.locationId,
-      },
+        locationId: req.params.locationId
+      }
     })
       .then(route => {
-        if (!route) {
-          return err => res.status(400).send(err);
-        }
         return route
           .destroy()
-          .then(route => res.status(204).send(route))
-          .catch(err => res.status(400).send(err));
+          .then(route => res.status(204).send({ message: "Deleted" }))
+          .catch(err =>
+            res.status(400).send({ message: "Something went wrong!" })
+          );
       })
-      .catch(err => res.status(400).send(err));
-  },
+      .catch(err => res.status(400).send({ message: "Something went wrong!" }));
+  }
 };

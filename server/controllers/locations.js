@@ -5,7 +5,7 @@ module.exports = {
   create(req, res) {
     return Location.create({
       title: req.body.title,
-      open: req.body.open,
+      open: req.body.open
     })
       .then(location => res.status(201).send(location))
       .catch(err => res.status(400).send(err));
@@ -16,9 +16,9 @@ module.exports = {
       include: [
         {
           model: Route,
-          as: "routes",
-        },
-      ],
+          as: "routes"
+        }
+      ]
     })
       .then(locations => res.status(200).send(locations))
       .catch(err => res.status(400).send(err));
@@ -29,9 +29,9 @@ module.exports = {
       include: [
         {
           model: Route,
-          as: "routes",
-        },
-      ],
+          as: "routes"
+        }
+      ]
     })
       .then(location => res.status(200).send(location))
       .catch(err => res.status(400).send(err));
@@ -39,16 +39,16 @@ module.exports = {
 
   update(req, res) {
     return Location.findById(req.params.locationId, {
-      include: [{model: Route, as: "routes"}],
+      include: [{ model: Route, as: "routes" }]
     })
       .then(location => {
         if (!location) {
-          return res.status(400).send({message: "Location not found"});
+          return res.status(400).send({ message: "Location not found" });
         }
         return location
-          .update(req.body, {fields: Object.keys(req.body)})
+          .update(req.body, { fields: Object.keys(req.body) })
           .then(() => res.status(200).send(location))
-          .catch(err => res.status(400).send({message: "error updating"}));
+          .catch(err => res.status(400).send({ message: "error updating" }));
       })
       .catch(err => res.status(400).send(err));
   },
@@ -58,14 +58,14 @@ module.exports = {
       .then(location => {
         if (!location) {
           return res.status(400).send({
-            message: "no location",
+            message: "no location"
           });
         }
         return location
           .destroy()
-          .then(() => res.status(204).send())
+          .then(() => res.status(204).send({ message: "deleted item" }))
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
-  },
+  }
 };

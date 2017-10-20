@@ -1,10 +1,11 @@
 const locationsController = require("../controllers").locations;
 const routesController = require("../controllers").routes;
+const usersController = require("../controllers").users;
 
 module.exports = app => {
   app.get("/api", (req, res) =>
     res.status(200).send({
-      message: "location api",
+      message: "location api"
     })
   );
 
@@ -27,4 +28,7 @@ module.exports = app => {
     "/api/locations/:locationId/routes/:routeId",
     routesController.delete
   );
+
+  app.post("/signup", usersController.create);
+  app.post("/login", usersController.retrieve);
 };
