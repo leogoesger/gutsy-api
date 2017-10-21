@@ -1,5 +1,6 @@
 const User = require("../models").User;
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   create(req, res) {
@@ -37,7 +38,8 @@ module.exports = {
     })
       .then(user => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          res.status(200).send(user);
+          const myToken = jwt.sign({ username: req.body.email }, "leogoesger");
+          res.status(200).json(myToken);
         } else {
           res.status(404).send({ message: "Wrong Password" });
         }
