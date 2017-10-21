@@ -1,4 +1,5 @@
 const User = require("../models").User;
+const bcrypt = require("bcrypt");
 
 module.exports = {
   create(req, res) {
@@ -13,7 +14,7 @@ module.exports = {
 
     User.create({
       email: req.body.email,
-      password: req.body.password
+      password: bcrypt.hashSync(req.body.password, 10)
     })
       .then(user => res.status(200).send(user))
       .catch(err => res.status(400).send(err));
@@ -35,10 +36,10 @@ module.exports = {
       }
     })
       .then(user => {
-        if (user.password == req.body.password) {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
           res.status(200).send(user);
         } else {
-          res.status(404).send({ message: "password is incorrect!" });
+          res.status(404).send({ message: "Wrong Password" });
         }
       })
       .catch(err => res.status(400).send(err));
