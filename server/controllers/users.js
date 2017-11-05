@@ -4,12 +4,8 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   create(req, res) {
-    if (!req.body.email) {
+    if (!req.body.email || !req.body.password) {
       res.status(400).send("email not found");
-      return;
-    }
-    if (!req.body.password) {
-      res.status(400).send("password not found");
       return;
     }
 
@@ -22,12 +18,8 @@ module.exports = {
   },
 
   retrieve(req, res) {
-    if (!req.body.email) {
+    if (!req.body.email || !req.body.password) {
       res.status(400).send("email not found");
-      return;
-    }
-    if (!req.body.password) {
-      res.status(400).send("password not found");
       return;
     }
 
@@ -38,12 +30,16 @@ module.exports = {
     })
       .then(user => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          const myToken = jwt.sign({ username: req.body.email }, "leogoesger");
+          const myToken = jwt.sign({ email: req.body.email }, "leogoesger");
           res.status(200).json(myToken);
         } else {
           res.status(404).send({ message: "Wrong Password" });
         }
       })
       .catch(err => res.status(400).send(err));
+  },
+
+  getMe(req, res) {
+    res.status(200).send({ message: "hello" });
   }
 };

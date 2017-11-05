@@ -1,6 +1,7 @@
 const locationsController = require("../controllers").locations;
 const routesController = require("../controllers").routes;
 const usersController = require("../controllers").users;
+const authenticate = require("../middlewares/authenticate").authenticate;
 
 module.exports = app => {
   app.get("/api", (req, res) =>
@@ -31,4 +32,5 @@ module.exports = app => {
 
   app.post("/signup", usersController.create);
   app.post("/login", usersController.retrieve);
+  app.get("/users/me", authenticate, usersController.getMe);
 };

@@ -3,14 +3,14 @@ module.exports = (sequelize, DataTypes) => {
   const Route = sequelize.define("Route", {
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   });
 
   Route.associate = models => {
     Route.belongsTo(models.Location, {
       foreignKey: "locationId",
-      onDelete: "CASCADE",
+      onDelete: "CASCADE"
     });
   };
   return Route;
