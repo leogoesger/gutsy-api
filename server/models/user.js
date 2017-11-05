@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     try {
       decoded = jwt.verify(token, "leogoesger");
     } catch (e) {
-      console.log(e);
+      return Promise.reject();
     }
 
-    console.log(decoded);
     return User.find({ where: { email: decoded.email } });
   };
 

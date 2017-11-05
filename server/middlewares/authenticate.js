@@ -5,8 +5,8 @@ const authenticate = (req, res, next) => {
   User.findByToken(token)
     .then(user => {
       if (!user) {
+        res.status(401).send({ message: "No user found!" });
       }
-
       req.user = user;
       req.token = token;
       next();
