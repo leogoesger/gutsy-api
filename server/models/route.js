@@ -8,9 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Route.associate = models => {
-    Route.belongsTo(models.Location, {
-      foreignKey: "locationId",
-      onDelete: "CASCADE"
+    Route.belongsTo(models.Region, {
+      foreignKey: "regionId"
     });
   };
   return Route;

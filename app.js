@@ -8,11 +8,6 @@ const app = express();
 app.use(logger("tiny"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(
-//   expressJWT({ secret: "leogoesger" }).unless({
-//     path: ["/login", "/api/locations"]
-//   })
-// );
 
 require("./server/routes")(app);
 

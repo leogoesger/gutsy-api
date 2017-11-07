@@ -1,9 +1,9 @@
-const locations = require("./locations");
+const regions = require("./regions");
 const routes = require("./routes");
 const users = require("./users");
 
 module.exports = {
-  locations,
+  regions,
   routes,
   users
 };

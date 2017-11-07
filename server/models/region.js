@@ -1,6 +1,6 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const Location = sequelize.define("Location", {
+  const Region = sequelize.define("Region", {
     title: {
       type: DataTypes.STRING,
       allowNull: false
@@ -8,13 +8,14 @@ module.exports = (sequelize, DataTypes) => {
     open: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
-  Location.associate = models => {
-    Location.hasMany(models.Route, {
-      foreignKey: "locationId",
-      as: "routes"
-    });
+  Region.associate = models => {
+    Region.hasMany(models.Route);
   };
-  return Location;
+  return Region;
 };

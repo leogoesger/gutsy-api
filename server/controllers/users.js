@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  create(req, res) {
+  signUp(req, res) {
     if (!req.body.email || !req.body.password) {
       res.status(400).send("email not found");
       return;
@@ -13,11 +13,14 @@ module.exports = {
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 10)
     })
-      .then(user => res.status(200).send(user))
+      .then(user => {
+        const myToken = jwt.sign({ email: req.body.email }, "leogoesger");
+        res.status(200).send(myToken);
+      })
       .catch(err => res.status(400).send(err));
   },
 
-  retrieve(req, res) {
+  login(req, res) {
     if (!req.body.email || !req.body.password) {
       res.status(400).send("email not found");
       return;

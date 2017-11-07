@@ -5,5 +5,5 @@ module.exports = {
 
   _update(item) {},
 
-  _create(item) {},
+  _create(item) {}
 };

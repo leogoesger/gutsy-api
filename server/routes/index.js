@@ -1,4 +1,4 @@
-const locationsController = require("../controllers").locations;
+const regionsController = require("../controllers").regions;
 const routesController = require("../controllers").routes;
 const usersController = require("../controllers").users;
 const authenticate = require("../middlewares/authenticate").authenticate;
@@ -6,31 +6,22 @@ const authenticate = require("../middlewares/authenticate").authenticate;
 module.exports = app => {
   app.get("/api", (req, res) =>
     res.status(200).send({
-      message: "location api"
+      message: "region api"
     })
   );
 
-  app.post("/api/locations", locationsController.create);
-  app.get("/api/locations", locationsController.list);
-  app.get("/api/locations/:locationId", locationsController.retrieve);
-  app.put("/api/locations/:locationId", locationsController.update);
-  app.delete("/api/locations/:locationId", locationsController.delete);
+  app.post("/api/regions", regionsController.create);
+  app.get("/api/regions", authenticate, regionsController.list);
+  app.get("/api/regions/:regionId", regionsController.retrieve);
+  app.put("/api/regions/:regionId", regionsController.update);
+  app.delete("/api/regions/:regionId", regionsController.delete);
 
-  app.get(
-    "/api/locations/:locationId/routes/:routeId",
-    routesController.retrieve
-  );
-  app.post("/api/locations/:locationId/routes", routesController.create);
-  app.put(
-    "/api/locations/:locationId/routes/:routeId",
-    routesController.update
-  );
-  app.delete(
-    "/api/locations/:locationId/routes/:routeId",
-    routesController.delete
-  );
+  app.get("/api/regions/:regionId/routes/:routeId", routesController.retrieve);
+  app.post("/api/regions/:regionId/routes", routesController.create);
+  app.put("/api/regions/:regionId/routes/:routeId", routesController.update);
+  app.delete("/api/regions/:regionId/routes/:routeId", routesController.delete);
 
-  app.post("/signup", usersController.create);
-  app.post("/login", usersController.retrieve);
+  app.post("/signup", usersController.signUp);
+  app.post("/login", usersController.login);
   app.get("/users/me", authenticate, usersController.getMe);
 };
