@@ -1,4 +1,5 @@
 const Region = require("../models").Region;
+const Area = require("../models").Area;
 const Route = require("../models").Route;
 
 module.exports = {
@@ -15,8 +16,8 @@ module.exports = {
     return Region.findAll({
       include: [
         {
-          model: Route,
-          as: "routes"
+          model: Area,
+          include: [{ model: Route }]
         }
       ]
     })
@@ -28,8 +29,8 @@ module.exports = {
     return Region.findById(req.params.regionId, {
       include: [
         {
-          model: Route,
-          as: "routes"
+          model: Area,
+          include: [{ model: Route }]
         }
       ]
     })
@@ -39,7 +40,7 @@ module.exports = {
 
   update(req, res) {
     return Region.findById(req.params.regionId, {
-      include: [{ model: Route, as: "routes" }]
+      include: [{ model: Area, include: [{ model: Route }] }]
     })
       .then(region => {
         if (!region) {

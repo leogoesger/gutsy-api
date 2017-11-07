@@ -13,13 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true
     },
-    GPS: {
+    gps: {
       type: DataTypes.STRING,
       allowNull: true
     }
   });
   Area.associate = models => {
-    Area.belongsTo(models.Region);
+    Area.belongsTo(models.Region, {
+      foreignKey: regionId
+    });
   };
   return Area;
 };

@@ -4,8 +4,21 @@ Create a new model:
 To enter Postgres CLI from terminal:
 `psql`
 
+Show database:
+`\list;`
+
 Drop database:
-`DROP DATABASE name`
+`DROP DATABASE name;`
+
+Create database;
+`CREATE DATABASE rockyard_development;`
+
+Connect database;
+`\connect database_name;`
+
+Exist psql
+`\q`
+
 
 Start the server on port 8000:
 `yarn/npm start`

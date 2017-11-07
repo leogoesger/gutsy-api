@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Routes", {
+    return queryInterface.createTable("Areas", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,21 +12,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      description: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      grade: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
-      category: {
-        type: Sequelize.STRING,
-        allowNull: true
-      },
       open: {
-        type: Sequelize.BOOLEAN,
-        allowNull: true
+        type: Sequelize.BOOLEAN
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      gps: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -36,17 +29,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      areaId: {
+      regionId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {
-          model: "Areas",
+          model: "Regions",
           key: "id"
         }
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Routes");
+    return queryInterface.dropTable("Areas");
   }
 };

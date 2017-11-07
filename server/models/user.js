@@ -10,14 +10,18 @@ module.exports = (sequelize, DataTypes) => {
   User.findByToken = function(token) {
     const User = this;
     let decoded;
-
     try {
       decoded = jwt.verify(token, "leogoesger");
     } catch (e) {
       return Promise.reject();
     }
-
     return User.find({ where: { email: decoded.email } });
+  };
+
+  User.associate = models => {
+    User.belongsToMany(models.Route, {
+      through: "user_routes"
+    });
   };
 
   return User;
