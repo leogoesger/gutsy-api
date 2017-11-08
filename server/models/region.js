@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Region.associate = models => {
-    Region.hasMany(models.Route);
+    Region.hasMany(models.Area, {
+      foreignKey: "regionId",
+      as: "areas"
+    });
   };
   return Region;
 };

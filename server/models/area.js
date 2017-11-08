@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
   });
   Area.associate = models => {
     Area.belongsTo(models.Region, {
-      foreignKey: regionId
+      foreignKey: "regionId"
+    });
+    Area.hasMany(models.Route, {
+      foreignKey: "areaId",
+      as: "routes"
     });
   };
   return Area;

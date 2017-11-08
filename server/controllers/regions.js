@@ -6,7 +6,8 @@ module.exports = {
   create(req, res) {
     return Region.create({
       title: req.body.title,
-      open: req.body.open
+      open: req.body.open,
+      description: req.body.description
     })
       .then(region => res.status(201).send(region))
       .catch(err => res.status(400).send(err));
@@ -17,7 +18,8 @@ module.exports = {
       include: [
         {
           model: Area,
-          include: [{ model: Route }]
+          as: "areas",
+          include: [{ model: Route, as: "routes" }]
         }
       ]
     })
@@ -25,12 +27,13 @@ module.exports = {
       .catch(err => res.status(400).send(err));
   },
 
-  retrieve(req, res) {
+  show(req, res) {
     return Region.findById(req.params.regionId, {
       include: [
         {
           model: Area,
-          include: [{ model: Route }]
+          as: "areas",
+          include: [{ model: Route, as: "routes" }]
         }
       ]
     })
@@ -39,9 +42,7 @@ module.exports = {
   },
 
   update(req, res) {
-    return Region.findById(req.params.regionId, {
-      include: [{ model: Area, include: [{ model: Route }] }]
-    })
+    return Region.findById(req.params.regionId)
       .then(region => {
         if (!region) {
           return res.status(400).send({ message: "Region not found" });

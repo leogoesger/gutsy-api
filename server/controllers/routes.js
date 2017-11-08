@@ -2,20 +2,19 @@ const Route = require("../models").Route;
 
 module.exports = {
   create(req, res) {
-    console.log(req.params.regionId);
     return Route.create({
       title: req.body.title,
-      regionId: req.params.regionId
+      areaId: req.params.areaId
     })
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
   },
 
-  retrieve(req, res) {
+  show(req, res) {
     return Route.find({
       where: {
         id: req.params.routeId,
-        regionId: req.params.regionId
+        areaId: req.params.areaId
       }
     })
       .then(route => res.status(200).send(route))
@@ -30,7 +29,7 @@ module.exports = {
     return Route.find({
       where: {
         id: req.params.routeId,
-        regionId: req.params.regionId
+        areaId: req.params.areaId
       }
     })
       .then(route => {
@@ -49,7 +48,7 @@ module.exports = {
     return Route.find({
       where: {
         id: req.params.routeId,
-        regionId: req.params.regionId
+        areaId: req.params.areaId
       }
     })
       .then(route => {
