@@ -5,7 +5,7 @@ const Route = require("../models").Route;
 module.exports = {
   create(req, res) {
     return Region.create({
-      title: req.body.title,
+      name: req.body.name,
       open: req.body.open,
       description: req.body.description
     })

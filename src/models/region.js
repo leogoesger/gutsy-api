@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
   const Region = sequelize.define("Region", {
-    title: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
