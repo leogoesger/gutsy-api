@@ -7,17 +7,17 @@ const chaiHttp = require("chai-http");
 // dotenv.config({path: ".env.test"});
 chai.use(chaiHttp);
 
-describe("'routes'service", () => {
-  it("should POST route", async () => {
+describe("'regions'service", () => {
+  it("should POST region", async () => {
     const dummy = {
-      title: "New route",
+      name: "New Region",
       open: true,
-      description: "This is a cool route!"
+      description: "This is a cool region!"
     };
     const res = await chai
       .request(app)
       .post("/api/regions")
       .send(dummy);
-    assert.equal(res.body.title, dummy.title);
+    assert.equal(res.body.name, dummy.name);
   });
 });
