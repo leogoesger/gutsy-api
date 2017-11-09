@@ -1,3 +1,6 @@
+`This starts the sequelize`
+$ sequelize init
+
 Create a new model:
 `$ sequelize model:create --name TodoItem --attributes content:string,complete:boolean'
 
