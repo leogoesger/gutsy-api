@@ -3,8 +3,12 @@ const Route = require("../models").Route;
 module.exports = {
   create(req, res) {
     return Route.create({
-      title: req.body.title,
-      areaId: req.params.areaId
+      name: req.body.name,
+      description: req.body.description,
+      grade: req.body.grade,
+      category: req.body.category,
+      open: req.body.open,
+      areaId: req.body.areaId
     })
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
@@ -13,8 +17,7 @@ module.exports = {
   show(req, res) {
     return Route.find({
       where: {
-        id: req.params.routeId,
-        areaId: req.params.areaId
+        id: req.params.routeId
       }
     })
       .then(route => res.status(200).send(route))
@@ -28,8 +31,7 @@ module.exports = {
   update(req, res) {
     return Route.find({
       where: {
-        id: req.params.routeId,
-        areaId: req.params.areaId
+        id: req.params.routeId
       }
     })
       .then(route => {
@@ -47,8 +49,7 @@ module.exports = {
   delete(req, res) {
     return Route.find({
       where: {
-        id: req.params.routeId,
-        areaId: req.params.areaId
+        id: req.params.routeId
       }
     })
       .then(route => {

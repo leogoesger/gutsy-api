@@ -9,7 +9,7 @@ app.use(logger("tiny"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-require("./server/routes")(app);
+require("./routes")(app);
 
 app.get("*", (req, res) =>
   res.status(200).send({
