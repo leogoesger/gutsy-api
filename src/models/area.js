@@ -1,4 +1,6 @@
 "use strict";
+const Sequelize = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   var Area = sequelize.define("Area", {
     name: {
@@ -6,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     open: {
-      type: DataTypes.STRING,
+      type: DataTypes.BOOLEAN,
       allowNull: true
     },
     description: {

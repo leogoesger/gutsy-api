@@ -1,11 +1,9 @@
-import app from "../../src/app";
 import factory, { SequelizeAdapter } from "factory-girl";
 factory.setAdapter(new SequelizeAdapter());
 
-const createModel = require("../../src/models/regions");
-const regions = createModel(app);
+const Region = require("../../src/models/region");
 
-factory.define("region", regions, () => {
+factory.define("region", Region, () => {
   return {
     name: factory.chance("first"),
     open: "true",
