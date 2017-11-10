@@ -1,7 +1,7 @@
-const chai = require("chai");
-const assert = require("assert");
-const app = require("../../src/app");
-const chaiHttp = require("chai-http");
+import chai from "chai";
+import assert from "assert";
+import app from "../../src/app";
+import chaiHttp from "chai-http";
 
 // import dotenv from "dotenv";
 // dotenv.config({path: ".env.test"});
