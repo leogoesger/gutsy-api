@@ -1,16 +1,18 @@
 "use strict";
-module.exports = (sequelize, DataTypes) => {
-  const Region = sequelize.define("Region", {
+const Sequelize = require("sequelize");
+
+module.exports = (sequelizeClient, DataTypes) => {
+  const Region = sequelizeClient.define("Region", {
     name: {
-      type: DataTypes.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     open: {
-      type: DataTypes.STRING,
+      type: Sequelize.BOOLEAN,
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING,
+      type: Sequelize.TEXT,
       allowNull: true
     }
   });

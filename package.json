@@ -8,9 +8,11 @@
   "private": false,
   "scripts": {
     "start": "nodemon ./src/index.js --exec babel-node",
-    "test": "NODE_ENV=test sequelize db:migrate ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
+    "test":
+      "NODE_ENV=test npm run prepare ; NODE_ENV=test npm run migrate ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
     "test-watch": "nodemon --exec 'yarn test'",
-    "migrate": "sequelize db:migrate"
+    "migrate": "sequelize db:migrate",
+    "prepare": "sequelize db:migrate:undo:all"
   },
   "dependencies": {
     "assert": "^1.4.1",

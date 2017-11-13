@@ -3,8 +3,8 @@ const jwt = require("jsonwebtoken");
 
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define("User", {
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: DataTypes.TEXT,
+    password: DataTypes.TEXT
   });
 
   User.findByToken = function(token) {

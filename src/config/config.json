@@ -5,7 +5,8 @@
     "database": "rockyard_development",
     "host": "127.0.0.1",
     "post": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorsAliases": false
   },
   "test": {
     "username": "leoqiu",
@@ -13,13 +14,15 @@
     "database": "rockyard_test",
     "host": "127.0.0.1",
     "post": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorsAliases": false
   },
   "production": {
     "username": "leoqiu",
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorsAliases": false
   }
 }

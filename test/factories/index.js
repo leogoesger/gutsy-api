@@ -1,7 +1,7 @@
-import factory from "factory-girl";
+import factory, { SequelizeAdapter } from "factory-girl";
+factory.setAdapter(new SequelizeAdapter());
 
-import "./regions";
-
-global.factory = factory;
+const regions = require("./area")(factory);
+const routes = require("./region")(factory);
 
 export default factory;

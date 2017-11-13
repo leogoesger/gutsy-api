@@ -2,6 +2,7 @@ import chai from "chai";
 import assert from "assert";
 import app from "../../src/app";
 import chaiHttp from "chai-http";
+import factories from "../factories";
 import db from "../../src/models";
 
 // import dotenv from "dotenv";
@@ -13,15 +14,18 @@ describe("'regions'service", () => {
     await db.sequelize.sync({ force: true, logging: false });
   });
 
-  it("should POST region", async () => {
+  it("should POST area", async () => {
+    const region = await factories.create("region");
     const dummy = {
-      name: "New Region",
+      name: "New area",
       open: true,
-      description: "This is a cool region!"
+      description: "This is a cool area!",
+      gps: "122.123, 123.4123",
+      regionId: region.dataValues.id
     };
     const res = await chai
       .request(app)
-      .post("/api/regions")
+      .post("/api/areas")
       .send(dummy);
     assert.equal(res.body.name, dummy.name);
   });

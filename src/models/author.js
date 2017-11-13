@@ -3,9 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   var Author = sequelize.define(
     "Author",
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
-      email: DataTypes.STRING
+      firstName: DataTypes.TEXT,
+      lastName: DataTypes.TEXT,
+      email: DataTypes.TEXT
     },
     {
       classMethods: {

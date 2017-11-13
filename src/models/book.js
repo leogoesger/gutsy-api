@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   var Book = sequelize.define(
     "Book",
     {
-      title: DataTypes.STRING,
-      description: DataTypes.STRING,
+      title: DataTypes.TEXT,
+      description: DataTypes.TEXT,
       price: DataTypes.BOOLEAN
     },
     {
