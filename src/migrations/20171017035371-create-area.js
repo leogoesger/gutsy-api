@@ -9,17 +9,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       open: {
         type: Sequelize.BOOLEAN
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       gps: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

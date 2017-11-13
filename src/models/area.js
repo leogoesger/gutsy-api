@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   var Area = sequelize.define("Area", {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     open: {
@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     gps: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     }
   });

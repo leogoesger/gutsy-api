@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 module.exports = (sequelizeClient, DataTypes) => {
   const Region = sequelizeClient.define("Region", {
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
     },
     open: {
@@ -12,7 +12,7 @@ module.exports = (sequelizeClient, DataTypes) => {
       allowNull: false
     },
     description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: true
     }
   });
