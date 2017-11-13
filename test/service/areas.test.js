@@ -21,7 +21,6 @@ describe("'regions'service", () => {
       .request(app)
       .post("/api/areas")
       .send(dummy);
-    console.log(res.body);
     assert.equal(res.body.name, dummy.name);
   });
 });

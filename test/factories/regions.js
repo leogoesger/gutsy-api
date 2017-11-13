@@ -1,7 +1,7 @@
 import factory, { SequelizeAdapter } from "factory-girl";
 factory.setAdapter(new SequelizeAdapter());
 
-const Region = require("../../src/models/region");
+const Region = require("../../src/models").Region;
 
 factory.define("region", Region, () => {
   return {
