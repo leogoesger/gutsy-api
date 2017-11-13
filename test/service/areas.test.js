@@ -3,12 +3,17 @@ import assert from "assert";
 import app from "../../src/app";
 import chaiHttp from "chai-http";
 import factories from "../factories";
+import db from "../../src/models";
 
 // import dotenv from "dotenv";
 // dotenv.config({path: ".env.test"});
 chai.use(chaiHttp);
 
 describe("'regions'service", () => {
+  beforeEach(async () => {
+    await db.sequelize.sync({ force: true, logging: false });
+  });
+
   it("should POST area", async () => {
     const region = await factories.create("region");
     const dummy = {
