@@ -2,6 +2,7 @@ const Route = require("../models").Route;
 
 module.exports = {
   create(req, res) {
+    console.log(req.body);
     return Route.create({
       name: req.body.name,
       description: req.body.description,
@@ -16,17 +17,11 @@ module.exports = {
   },
 
   show(req, res) {
-    return Route.find({
-      where: {
-        id: req.params.routeId
-      }
+    return Route.findById(req.params.routeId, {
+      include: [{ model: User, as: "users" }]
     })
-      .then(route => res.status(200).send(route))
-      .catch(err =>
-        res
-          .status(400)
-          .send({ message: "Something went wrong! getting the data" })
-      );
+      .then(route => res.status(200).send({ message: "hello" }))
+      .catch(err => res.status(400).send(err));
   },
 
   update(req, res) {
