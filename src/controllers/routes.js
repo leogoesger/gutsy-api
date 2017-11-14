@@ -8,7 +8,8 @@ module.exports = {
       grade: req.body.grade,
       category: req.body.category,
       open: req.body.open,
-      areaId: req.body.areaId
+      areaId: req.body.areaId,
+      bookId: req.body.bookId
     })
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));

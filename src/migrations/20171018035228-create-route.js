@@ -43,6 +43,14 @@ module.exports = {
           model: "Areas",
           key: "id"
         }
+      },
+      bookId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Books",
+          key: "id"
+        }
       }
     });
   },
