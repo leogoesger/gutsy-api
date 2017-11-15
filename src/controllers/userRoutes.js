@@ -1,8 +1,8 @@
-const Apple = require("../models").Apple;
+const UserRoute = require("../models").UserRoute;
 
 module.exports = {
   create(req, res) {
-    return Apple.create({
+    return UserRoute.create({
       quantity: req.body.quantity
     })
       .then(area => res.status(201).send(area))
