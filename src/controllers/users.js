@@ -46,10 +46,17 @@ module.exports = {
 
   getMe(req, res) {
     User.findById(req.user.id, {
-      include: [
-        { model: UserRoute, as: "userRoutes", include: [{ model: Route }] }
-      ]
+      include: [{ model: Route, foreignKey: "routeId", as: "routes" }]
     })
+      // User.findById(req.user.id, {
+      //   include: [
+      //     {
+      //       model: UserRoute,
+      //       as: "userRoutes",
+      //       include: [{ model: Route, as: "routes" }]
+      //     }
+      //   ]
+      // })
       .then(user => res.status(200).send(user))
       .catch(err => res.status(404).send(err));
   }

@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
 
   UserRoute.associate = models => {
     UserRoute.belongsTo(models.User, {
-      foreignKey: "userId"
+      foreignKey: "userId",
+      as: "users"
     });
     UserRoute.belongsTo(models.Route, {
-      foreignKey: "routeId"
+      foreignKey: "routeId",
+      as: "routes"
     });
   };
   return UserRoute;
