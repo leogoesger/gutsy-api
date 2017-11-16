@@ -1,19 +1,25 @@
 "use strict";
+
 module.exports = (sequelize, DataTypes) => {
-  var Author = sequelize.define(
-    "Author",
-    {
-      firstName: DataTypes.TEXT,
-      lastName: DataTypes.TEXT,
-      email: DataTypes.TEXT
+  const Author = sequelize.define("Author", {
+    firstName: {
+      type: DataTypes.TEXT,
+      allowNull: false
     },
-    {
-      classMethods: {
-        associate: function(models) {
-          // associations can be defined here
-        }
-      }
+    lastName: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
-  );
+  });
+  Author.associate = models => {
+    Author.hasMany(models.Book, {
+      foreignKey: "authorId",
+      as: "books"
+    });
+  };
   return Author;
 };
