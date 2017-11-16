@@ -19,10 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = models => {
-    User.belongsToMany(models.Route, {
-      through: "UserRoutes",
-      as: "routes"
-    });
+    User.hasMany(models.UserRoute, { foreignKey: "userId", as: "userRoutes" });
   };
 
   return User;

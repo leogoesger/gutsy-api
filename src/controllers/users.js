@@ -1,5 +1,6 @@
 const User = require("../models").User;
 const Route = require("../models").Route;
+const UserRoute = require("../models").UserRoute;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -45,7 +46,9 @@ module.exports = {
 
   getMe(req, res) {
     User.findById(req.user.id, {
-      include: [{ model: Route, as: "routes" }]
+      include: [
+        { model: UserRoute, as: "userRoutes", include: [{ model: Route }] }
+      ]
     })
       .then(user => res.status(200).send(user))
       .catch(err => res.status(404).send(err));
