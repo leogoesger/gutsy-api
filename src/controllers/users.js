@@ -1,4 +1,5 @@
 const User = require("../models").User;
+const Route = require("../models").Route;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -43,6 +44,8 @@ module.exports = {
   },
 
   getMe(req, res) {
-    res.status(200).send(req.user);
+    User.findById(req.user.id, {
+      include: [{ model: Route, as: "routes" }]
+    }).then(user => res.status(200).send(user));
   }
 };
