@@ -12,6 +12,7 @@
       "NODE_ENV=test npm run migrate ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
     "test-watch": "nodemon --exec 'yarn test'",
     "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all",
     "prepare": "sequelize db:migrate:undo:all ; yarn run migrate"
   },
   "dependencies": {
