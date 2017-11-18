@@ -5,6 +5,7 @@ const areas = require("./areas");
 const authors = require("./authors");
 const books = require("./books");
 const userRoutes = require("./userRoutes");
+const userBooks = require("./userBooks");
 
 module.exports = {
   regions,
@@ -13,5 +14,6 @@ module.exports = {
   areas,
   authors,
   books,
-  userRoutes
+  userRoutes,
+  userBooks
 };

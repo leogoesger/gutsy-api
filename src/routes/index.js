@@ -7,6 +7,7 @@ const areasController = require("../controllers").areas;
 const authorsController = require("../controllers").authors;
 const booksController = require("../controllers").books;
 const userRoutesController = require("../controllers").userRoutes;
+const userBooksController = require("../controllers").userBooks;
 
 module.exports = app => {
   app.get("/api", (req, res) =>
@@ -45,6 +46,8 @@ module.exports = app => {
   app.delete("/api/books/:bookId", booksController.delete);
 
   app.post("/api/userRoutes", userRoutesController.create);
+
+  app.post("/api/userBooks", userBooksController.create);
 
   app.post("/signup", usersController.signUp);
   app.post("/login", usersController.login);
