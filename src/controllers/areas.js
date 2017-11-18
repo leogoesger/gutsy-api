@@ -3,25 +3,14 @@ const Route = require("../models").Route;
 
 module.exports = {
   create(req, res) {
-    return Area.create({
-      name: req.body.name,
-      open: req.body.open,
-      description: req.body.description,
-      gps: req.body.gps,
-      regionId: req.body.regionId
-    })
+    return Area.create(req.body)
       .then(area => res.status(201).send(area))
       .catch(err => res.status(400).send(err));
   },
 
   list(req, res) {
     return Area.findAll({
-      include: [
-        {
-          model: Route,
-          as: "routes"
-        }
-      ]
+      include: [{ model: Route, as: "routes" }]
     })
       .then(areas => res.status(200).send(areas))
       .catch(err => res.status(400).send(err));
@@ -29,12 +18,7 @@ module.exports = {
 
   show(req, res) {
     return Area.findById(req.params.areaId, {
-      include: [
-        {
-          model: Route,
-          as: "routes"
-        }
-      ]
+      include: [{ model: Route, as: "routes" }]
     })
       .then(area => res.status(200).send(area))
       .catch(err => res.status(400).send(err));

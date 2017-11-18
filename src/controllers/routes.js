@@ -2,16 +2,7 @@ const Route = require("../models").Route;
 
 module.exports = {
   create(req, res) {
-    console.log(req.body);
-    return Route.create({
-      name: req.body.name,
-      description: req.body.description,
-      grade: req.body.grade,
-      category: req.body.category,
-      open: req.body.open,
-      areaId: req.body.areaId,
-      bookId: req.body.bookId
-    })
+    return Route.create(req.body)
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
   },

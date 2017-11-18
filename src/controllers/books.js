@@ -1,21 +1,20 @@
 const Book = require("../models").Book;
 const Route = require("../models").Route;
+const Author = require("../models").Author;
 
 module.exports = {
   create(req, res) {
-    return Book.create({
-      title: req.body.title,
-      description: req.body.description,
-      price: req.body.price,
-      authorId: req.body.authorId
-    })
+    return Book.create(req.body)
       .then(book => res.status(201).send(book))
       .catch(err => res.status(400).send(err));
   },
 
   list(req, res) {
     return Book.findAll({
-      include: [{ model: Route, as: "routes" }]
+      include: [
+        { model: Route, as: "routes" },
+        { model: Author, foreignKey: "authorId", as: "authors" }
+      ]
     })
       .then(books => res.status(200).send(books))
       .catch(err => res.status(400).send(err));
@@ -23,7 +22,10 @@ module.exports = {
 
   show(req, res) {
     return Book.findById(req.params.bookId, {
-      include: [{ model: Route, as: "routes" }]
+      include: [
+        { model: Route, as: "routes" },
+        { model: Author, foreignKey: "authorId", as: "authors" }
+      ]
     })
       .then(book => res.status(200).send(book))
       .catch(err => res.status(400).send(err));

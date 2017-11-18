@@ -12,10 +12,11 @@ module.exports = {
       return;
     }
 
-    User.create({
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 10)
-    })
+    User.create(
+      Object.assign(req.body, {
+        password: bcrypt.hashSync(req.body.password, 10)
+      })
+    )
       .then(user => {
         const myToken = jwt.sign({ email: req.body.email }, "leogoesger");
         res.status(200).send(myToken);
