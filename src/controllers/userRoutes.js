@@ -2,7 +2,6 @@ const UserRoute = require("../models").UserRoute;
 
 module.exports = {
   create(req, res) {
-    console.log(req.body.userId);
     return UserRoute.create({
       quantity: req.body.quantity,
       userId: req.body.userId,

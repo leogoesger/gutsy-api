@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "routeId",
       as: "routes"
     });
+    User.belongsToMany(models.Book, {
+      through: "UserBooks",
+      foreignKey: "bookId",
+      as: "books"
+    });
+
     // User.hasMany(models.UserRoute, { foreignKey: "userId", as: "userRoutes" });
   };
 
