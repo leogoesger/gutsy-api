@@ -1,7 +1,8 @@
-import factory, { SequelizeAdapter } from "factory-girl";
+/* eslint-disable */
+import factory, {SequelizeAdapter} from 'factory-girl';
 factory.setAdapter(new SequelizeAdapter());
 
-const regions = require("./area")(factory);
-const routes = require("./region")(factory);
+const areas = require('./area')(factory);
+const regions = require('./region')(factory);
 
 export default factory;

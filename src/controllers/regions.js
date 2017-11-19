@@ -1,6 +1,5 @@
-const Region = require("../models").Region;
-const Area = require("../models").Area;
-const Route = require("../models").Route;
+const Region = require('../models').Region;
+const Area = require('../models').Area;
 
 module.exports = {
   create(req, res) {
@@ -11,7 +10,7 @@ module.exports = {
 
   list(req, res) {
     return Region.findAll({
-      include: [{ model: Area, as: "areas" }]
+      include: [{model: Area, as: 'areas'}],
     })
       .then(regions => res.status(200).send(regions))
       .catch(err => res.status(400).send(err));
@@ -19,7 +18,7 @@ module.exports = {
 
   show(req, res) {
     return Region.findById(req.params.regionId, {
-      include: [{ model: Area, as: "areas" }]
+      include: [{model: Area, as: 'areas'}],
     })
       .then(region => res.status(200).send(region))
       .catch(err => res.status(400).send(err));
@@ -29,12 +28,12 @@ module.exports = {
     return Region.findById(req.params.regionId)
       .then(region => {
         if (!region) {
-          return res.status(400).send({ message: "Region not found" });
+          return res.status(400).send({message: 'Region not found'});
         }
         return region
-          .update(req.body, { fields: Object.keys(req.body) })
+          .update(req.body, {fields: Object.keys(req.body)})
           .then(() => res.status(200).send(region))
-          .catch(err => res.status(400).send({ message: "error updating" }));
+          .catch(err => res.status(400).send({err}));
       })
       .catch(err => res.status(400).send(err));
   },
@@ -44,14 +43,14 @@ module.exports = {
       .then(region => {
         if (!region) {
           return res.status(400).send({
-            message: "no region"
+            message: 'no region',
           });
         }
         return region
           .destroy()
-          .then(() => res.status(204).send({ message: "deleted item" }))
+          .then(() => res.status(204).send({message: 'deleted item'}))
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
-  }
+  },
 };

@@ -1,19 +1,18 @@
-const express = require("express");
-const logger = require("morgan");
-const bodyParser = require("body-parser");
-const expressJWT = require("express-jwt");
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(logger("tiny"));
+app.use(logger('tiny'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 
-require("./routes")(app);
+require('./routes')(app);
 
-app.get("*", (req, res) =>
+app.get('*', (req, res) =>
   res.status(200).send({
-    message: "App is running"
+    message: 'App is running',
   })
 );
 

@@ -1,34 +1,34 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Book = sequelize.define("Book", {
+  const Book = sequelize.define('Book', {
     title: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     price: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false
-    }
+      type: DataTypes.DECIMAL(10, 2), // eslint-disable-line
+      allowNull: false,
+    },
   });
   Book.associate = models => {
     Book.belongsToMany(models.Route, {
-      through: "BookRoutes",
-      foreignKey: "routeId",
-      as: "routes"
+      through: 'BookRoutes',
+      foreignKey: 'routeId',
+      as: 'routes',
     });
     Book.belongsToMany(models.Author, {
-      through: "AuthorBooks",
-      foreignKey: "authorId",
-      as: "authors"
+      through: 'AuthorBooks',
+      foreignKey: 'authorId',
+      as: 'authors',
     });
     Book.belongsToMany(models.User, {
-      through: "UserBooks",
-      foreignKey: "userId",
-      as: "users"
+      through: 'UserBooks',
+      foreignKey: 'userId',
+      as: 'users',
     });
   };
   return Book;

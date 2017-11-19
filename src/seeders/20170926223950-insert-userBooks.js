@@ -1,11 +1,11 @@
-"use strict";
-const { userBooks } = require("../seeder-data");
+'use strict';
+const {userBooks} = require('../seeder-data');
 
 module.exports = {
   up: (queryInterface, _Sequelize) => {
-    return queryInterface.bulkInsert("UserBooks", userBooks);
+    return queryInterface.bulkInsert('UserBooks', userBooks);
   },
   down: (queryInterface, _Sequelize) => {
-    return queryInterface.bulkDelete("UserBooks");
-  }
+    return queryInterface.bulkDelete('UserBooks');
+  },
 };

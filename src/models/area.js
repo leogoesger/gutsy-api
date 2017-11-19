@@ -1,31 +1,31 @@
-"use strict";
+'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  var Area = sequelize.define("Area", {
+  const Area = sequelize.define('Area', {
     name: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     open: {
       type: DataTypes.BOOLEAN,
-      allowNull: true
+      allowNull: true,
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: true,
     },
     gps: {
       type: DataTypes.TEXT,
-      allowNull: true
-    }
+      allowNull: true,
+    },
   });
   Area.associate = models => {
     Area.belongsTo(models.Region, {
-      foreignKey: "regionId"
+      foreignKey: 'regionId',
     });
     Area.hasMany(models.Route, {
-      foreignKey: "areaId",
-      as: "routes"
+      foreignKey: 'areaId',
+      as: 'routes',
     });
   };
   return Area;

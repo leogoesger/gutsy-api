@@ -17,10 +17,14 @@
     "test-prepare": "sequelize db:migrate:undo:all ; yarn run migrate ",
     "prepare":
       "sequelize db:migrate:undo:all ; yarn run migrate ; yarn run seed",
-    "prettier": "prettier es5 --write '{src,__{tests,mocks}__}/**/*.js'"
+    "lint":
+      "node_modules/.bin/eslint --fix --ext \".js\" --ignore-pattern node_modules --quiet .",
+    "prettier":
+      "prettier --single-quote --bracket-spacing false --trailing-comma es5 --write '{src,__{tests,mocks}__}/**/*.js'"
   },
   "dependencies": {
     "assert": "^1.4.1",
+    "babel-eslint": "^7.2.3",
     "babel-cli": "^6.26.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-runtime": "^6.23.0",

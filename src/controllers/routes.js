@@ -1,6 +1,6 @@
-const Route = require("../models").Route;
-const User = require("../models").User;
-const Book = require("../models").Book;
+const Route = require('../models').Route;
+const User = require('../models').User;
+const Book = require('../models').Book;
 
 module.exports = {
   create(req, res) {
@@ -12,9 +12,9 @@ module.exports = {
   show(req, res) {
     return Route.findById(req.params.routeId, {
       include: [
-        { model: User, as: "users" },
-        { model: Book, foreignKey: "bookId", as: "books" }
-      ]
+        {model: User, as: 'users'},
+        {model: Book, foreignKey: 'bookId', as: 'books'},
+      ],
     })
       .then(route => res.status(200).send(route))
       .catch(err => res.status(400).send(err));
@@ -23,16 +23,16 @@ module.exports = {
   update(req, res) {
     return Route.find({
       where: {
-        id: req.params.routeId
-      }
+        id: req.params.routeId,
+      },
     })
       .then(route => {
         if (!route) {
           return err => res.status(400).send(err);
         }
         return route
-          .update(req.body, { fields: Object.keys(req.body) })
-          .then(route => res.status(200).send(route))
+          .update(req.body, {fields: Object.keys(req.body)})
+          .then(() => res.status(200).send(route))
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
@@ -41,17 +41,17 @@ module.exports = {
   delete(req, res) {
     return Route.find({
       where: {
-        id: req.params.routeId
-      }
+        id: req.params.routeId,
+      },
     })
       .then(route => {
         return route
           .destroy()
-          .then(route => res.status(204).send({ message: "Deleted" }))
-          .catch(err =>
-            res.status(400).send({ message: "Something went wrong!" })
+          .then(() => res.status(204).send({message: 'Deleted'}))
+          .catch(() =>
+            res.status(400).send({message: 'Something went wrong!'})
           );
       })
-      .catch(err => res.status(400).send({ message: "Something went wrong!" }));
-  }
+      .catch(err => res.status(400).send(err));
+  },
 };

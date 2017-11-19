@@ -1,83 +1,82 @@
-"use strict";
-const jwt = require("jsonwebtoken");
+'use strict';
+const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
-  var User = sequelize.define("User", {
+  const User = sequelize.define('User', {
     role: {
       type: DataTypes.ENUM,
-      values: ["CUSTOMER", "ADMIN", "SUPER_ADMIN", "AUTHOR", "BOLTER"],
-      defaultValue: "CUSTOMER"
+      values: ['CUSTOMER', 'ADMIN', 'SUPER_ADMIN', 'AUTHOR', 'BOLTER'],
+      defaultValue: 'CUSTOMER',
     },
     firstName: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     middleName: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: ""
+      defaultValue: '',
     },
     lastName: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: DataTypes.TEXT,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     password: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
     },
     address1: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: ""
+      defaultValue: '',
     },
     address2: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: ""
+      defaultValue: '',
     },
     city: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: ""
+      defaultValue: '',
     },
     zip: {
       type: DataTypes.TEXT,
       allowNull: true,
-      defaultValue: ""
+      defaultValue: '',
     },
     isVerified: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false
-    }
+      defaultValue: false,
+    },
   });
 
-  User.findByToken = function(token) {
-    const User = this;
+  User.findByToken = token => {
     let decoded;
     try {
-      decoded = jwt.verify(token, "leogoesger");
+      decoded = jwt.verify(token, 'leogoesger');
     } catch (e) {
       return Promise.reject();
     }
-    return User.find({ where: { email: decoded.email } });
+    return User.find({where: {email: decoded.email}});
   };
 
   User.associate = models => {
     User.belongsToMany(models.Route, {
-      through: "UserRoutes",
-      foreignKey: "routeId",
-      as: "routes"
+      through: 'UserRoutes',
+      foreignKey: 'routeId',
+      as: 'routes',
     });
     User.belongsToMany(models.Book, {
-      through: "UserBooks",
-      foreignKey: "bookId",
-      as: "books"
+      through: 'UserBooks',
+      foreignKey: 'bookId',
+      as: 'books',
     });
 
     // User.hasMany(models.UserRoute, { foreignKey: "userId", as: "userRoutes" });

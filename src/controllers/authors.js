@@ -1,5 +1,5 @@
-const Author = require("../models").Author;
-const Book = require("../models").Book;
+const Author = require('../models').Author;
+const Book = require('../models').Book;
 
 module.exports = {
   create(req, res) {
@@ -10,7 +10,7 @@ module.exports = {
 
   list(req, res) {
     return Author.findAll({
-      include: [{ model: Book, foreignKey: "bookId", as: "books" }]
+      include: [{model: Book, foreignKey: 'bookId', as: 'books'}],
     })
       .then(authors => res.status(200).send(authors))
       .catch(err => res.status(400).send(err));
@@ -18,7 +18,7 @@ module.exports = {
 
   show(req, res) {
     return Author.findById(req.params.authorId, {
-      include: [{ model: Book, foreignKey: "bookId", as: "books" }]
+      include: [{model: Book, foreignKey: 'bookId', as: 'books'}],
     })
       .then(author => res.status(200).send(author))
       .catch(err => res.status(400).send(err));
@@ -28,12 +28,12 @@ module.exports = {
     return Author.findById(req.params.authorId)
       .then(author => {
         if (!author) {
-          return res.status(400).send({ message: "Author not found" });
+          return res.status(400).send({message: 'Author not found'});
         }
         return author
-          .update(req.body, { fields: Object.keys(req.body) })
+          .update(req.body, {fields: Object.keys(req.body)})
           .then(() => res.status(200).send(author))
-          .catch(err => res.status(400).send({ message: "error updating" }));
+          .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
   },
@@ -43,14 +43,14 @@ module.exports = {
       .then(author => {
         if (!author) {
           return res.status(400).send({
-            message: "no author"
+            message: 'no author',
           });
         }
         return author
           .destroy()
-          .then(() => res.status(204).send({ message: "deleted item" }))
+          .then(() => res.status(204).send({message: 'deleted item'}))
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
-  }
+  },
 };

@@ -1,45 +1,45 @@
-"use strict";
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Areas", {
+    return queryInterface.createTable('Areas', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: false,
       },
       open: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       gps: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       regionId: {
         type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
         references: {
-          model: "Regions",
-          key: "id"
-        }
-      }
+          model: 'Regions',
+          key: 'id',
+        },
+      },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Areas");
-  }
+  down: queryInterface => {
+    return queryInterface.dropTable('Areas');
+  },
 };

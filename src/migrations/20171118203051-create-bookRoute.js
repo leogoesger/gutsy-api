@@ -1,40 +1,40 @@
-"use strict";
+'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("BookRoutes", {
+    return queryInterface.createTable('BookRoutes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       bookId: {
         type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
         references: {
-          model: "Books",
-          key: "id"
-        }
+          model: 'Books',
+          key: 'id',
+        },
       },
       routeId: {
         type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
+        onDelete: 'CASCADE',
         references: {
-          model: "Routes",
-          key: "id"
-        }
-      }
+          model: 'Routes',
+          key: 'id',
+        },
+      },
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("BookRoutes");
-  }
+  down: queryInterface => {
+    return queryInterface.dropTable('BookRoutes');
+  },
 };

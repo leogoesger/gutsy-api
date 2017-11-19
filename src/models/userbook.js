@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const UserBook = sequelize.define("UserBook", {
+  const UserBook = sequelize.define('UserBook', {
     status: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
-    bookId: DataTypes.INTEGER
+    bookId: DataTypes.INTEGER,
   });
 
   return UserBook;
