@@ -4,7 +4,7 @@ module.exports = factory => {
   const region = factory.define("region", Region, () => {
     return {
       name: factory.chance("first"),
-      open: "true",
+      open: true,
       description: factory.chance("sentence", { words: 5 })
     };
   });

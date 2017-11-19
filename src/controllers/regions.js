@@ -11,13 +11,7 @@ module.exports = {
 
   list(req, res) {
     return Region.findAll({
-      include: [
-        {
-          model: Area,
-          as: "areas",
-          include: [{ model: Route, as: "routes" }]
-        }
-      ]
+      include: [{ model: Area, as: "areas" }]
     })
       .then(regions => res.status(200).send(regions))
       .catch(err => res.status(400).send(err));
@@ -25,13 +19,7 @@ module.exports = {
 
   show(req, res) {
     return Region.findById(req.params.regionId, {
-      include: [
-        {
-          model: Area,
-          as: "areas",
-          include: [{ model: Route, as: "routes" }]
-        }
-      ]
+      include: [{ model: Area, as: "areas" }]
     })
       .then(region => res.status(200).send(region))
       .catch(err => res.status(400).send(err));
