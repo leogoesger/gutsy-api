@@ -14,7 +14,7 @@ Drop database:
 `DROP DATABASE name;`
 
 Create database;
-`CREATE DATABASE rockyard_development;`
+`CREATE DATABASE gutsy_development;`
 
 Connect database;
 `\connect database_name;`

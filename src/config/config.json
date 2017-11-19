@@ -2,7 +2,7 @@
   "development": {
     "username": "leoqiu",
     "password": null,
-    "database": "rockyard_development",
+    "database": "gutsy_development",
     "host": "127.0.0.1",
     "post": 5432,
     "dialect": "postgres",
@@ -11,7 +11,7 @@
   "test": {
     "username": "leoqiu",
     "password": null,
-    "database": "rockyard_test",
+    "database": "gutsy_test",
     "host": "127.0.0.1",
     "post": 5432,
     "dialect": "postgres",
