@@ -16,7 +16,8 @@
     "seed": "sequelize db:seed:all",
     "test-prepare": "sequelize db:migrate:undo:all ; yarn run migrate ",
     "prepare":
-      "sequelize db:migrate:undo:all ; yarn run migrate ; yarn run seed"
+      "sequelize db:migrate:undo:all ; yarn run migrate ; yarn run seed",
+    "prettier": "prettier es5 --write '{src,__{tests,mocks}__}/**/*.js'"
   },
   "dependencies": {
     "assert": "^1.4.1",
@@ -32,6 +33,8 @@
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-prettier": "^2.0.1",
     "express": "^4.16.2",
     "express-jwt": "^5.3.0",
     "factory-girl": "^5.0.1",
@@ -41,12 +44,9 @@
     "nodemon": "^1.12.1",
     "pg": "^6.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.15.0"
-  },
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-plugin-prettier": "^2.0.1",
+    "sequelize": "^4.15.0",
     "prettier": "1.7.4",
     "sequelize-cli": "^3.0.0"
-  }
+  },
+  "devDependencies": {}
 }
