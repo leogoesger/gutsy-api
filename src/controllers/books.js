@@ -12,7 +12,7 @@ module.exports = {
   list(req, res) {
     return Book.findAll({
       include: [
-        { model: Route, as: "routes" },
+        { model: Route, foreignKey: "routeId", as: "routes" },
         { model: Author, foreignKey: "authorId", as: "authors" }
       ]
     })

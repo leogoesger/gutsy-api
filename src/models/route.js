@@ -27,8 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     Route.belongsTo(models.Area, {
       foreignKey: "areaId"
     });
-    Route.belongsTo(models.Book, {
-      foreignKey: "bookId"
+    Route.belongsToMany(models.Book, {
+      through: "BookRoutes",
+      foreignKey: "bookId",
+      as: "books"
     });
     Route.belongsToMany(models.User, {
       through: "UserRoutes",

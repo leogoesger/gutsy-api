@@ -15,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   Book.associate = models => {
-    Book.hasMany(models.Route, {
-      foreignKey: "bookId",
+    Book.belongsToMany(models.Route, {
+      through: "BookRoutes",
+      foreignKey: "routeId",
       as: "routes"
     });
     Book.belongsToMany(models.Author, {
