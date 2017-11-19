@@ -1,5 +1,5 @@
 {
-  "name": "rockyard-api",
+  "name": "gutsy-api",
   "version": "1.0.0",
   "description": "Climbing community performance data tracker!",
   "main": "index.js",
