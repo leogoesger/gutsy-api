@@ -1,7 +1,8 @@
 {
   "name": "gutsy-api",
   "version": "1.0.0",
-  "description": "Climbing community performance data tracker!",
+  "description":
+    "A climbing guide contains only accurate and up-to-date information!",
   "main": "index.js",
   "author": "Leo Qiu",
   "license": "MIT",
