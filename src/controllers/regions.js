@@ -4,11 +4,7 @@ const Route = require("../models").Route;
 
 module.exports = {
   create(req, res) {
-    return Region.create({
-      name: req.body.name,
-      open: req.body.open,
-      description: req.body.description
-    })
+    return Region.create(req.body)
       .then(region => res.status(201).send(region))
       .catch(err => res.status(400).send(err));
   },

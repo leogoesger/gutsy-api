@@ -1,26 +1,22 @@
 const Route = require("../models").Route;
+const User = require("../models").User;
+const Book = require("../models").Book;
 
 module.exports = {
   create(req, res) {
-    console.log(req.body);
-    return Route.create({
-      name: req.body.name,
-      description: req.body.description,
-      grade: req.body.grade,
-      category: req.body.category,
-      open: req.body.open,
-      areaId: req.body.areaId,
-      bookId: req.body.bookId
-    })
+    return Route.create(req.body)
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
   },
 
   show(req, res) {
     return Route.findById(req.params.routeId, {
-      include: [{ model: User, as: "users" }]
+      include: [
+        { model: User, as: "users" },
+        { model: Book, foreignKey: "bookId", as: "books" }
+      ]
     })
-      .then(route => res.status(200).send({ message: "hello" }))
+      .then(route => res.status(200).send(route))
       .catch(err => res.status(400).send(err));
   },
 

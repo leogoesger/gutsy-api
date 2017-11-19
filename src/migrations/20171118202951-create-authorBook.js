@@ -1,32 +1,12 @@
 "use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("Routes", {
+    return queryInterface.createTable("AuthorBooks", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
-      name: {
-        type: Sequelize.TEXT,
-        allowNull: false
-      },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: true
-      },
-      grade: {
-        type: Sequelize.TEXT,
-        allowNull: true
-      },
-      category: {
-        type: Sequelize.TEXT,
-        allowNull: true
-      },
-      open: {
-        type: Sequelize.BOOLEAN,
-        allowNull: true
       },
       createdAt: {
         allowNull: false,
@@ -36,17 +16,25 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      areaId: {
+      authorId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {
-          model: "Areas",
+          model: "Authors",
+          key: "id"
+        }
+      },
+      bookId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Books",
           key: "id"
         }
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Routes");
+    return queryInterface.dropTable("AuthorBooks");
   }
 };
