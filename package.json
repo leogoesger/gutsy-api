@@ -9,11 +9,13 @@
   "scripts": {
     "start": "nodemon ./src/index.js --exec babel-node",
     "test":
-      "NODE_ENV=test npm run migrate ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
+      "NODE_ENV=test yarn run test-prepare && mocha test/service --require babel-register --require babel-polyfill",
     "test-watch": "nodemon --exec 'yarn test'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
-    "prepare": "sequelize db:migrate:undo:all ; yarn run migrate"
+    "test-prepare": "sequelize db:migrate:undo:all ; yarn run migrate ",
+    "prepare":
+      "sequelize db:migrate:undo:all ; yarn run migrate ; yarn run seed"
   },
   "dependencies": {
     "assert": "^1.4.1",
@@ -36,7 +38,7 @@
     "mocha": "^3.3.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.12.1",
-    "pg": "^7.3.0",
+    "pg": "^6.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.15.0"
   },
