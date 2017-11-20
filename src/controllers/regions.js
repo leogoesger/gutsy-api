@@ -48,7 +48,7 @@ module.exports = {
         }
         return region
           .destroy()
-          .then(() => res.status(204).send({message: 'deleted item'}))
+          .then(() => res.status(204).send(region))
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));

@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "leoqiu",
+    "username": "postgres",
     "password": null,
     "database": "gutsy_development",
     "host": "127.0.0.1",
@@ -9,7 +9,7 @@
     "operatorsAliases": false
   },
   "test": {
-    "username": "leoqiu",
+    "username": "postgres",
     "password": null,
     "database": "gutsy_test",
     "host": "127.0.0.1",
@@ -18,7 +18,7 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "leoqiu",
+    "username": "postgres",
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",

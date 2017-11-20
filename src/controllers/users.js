@@ -53,16 +53,21 @@ module.exports = {
         {model: Book, foreignKey: 'bookId', as: 'books'},
       ],
     })
-      // User.findById(req.user.id, {
-      //   include: [
-      //     {
-      //       model: UserRoute,
-      //       as: "userRoutes",
-      //       include: [{ model: Route, as: "routes" }]
-      //     }
-      //   ]
-      // })
       .then(user => res.status(200).send(user))
       .catch(err => res.status(404).send(err));
+  },
+
+  update(req, res) {
+    User.findById(req.user.id)
+      .then(user => {
+        if (!user) {
+          return err => res.status(400).send(err);
+        }
+        return user
+          .update(req.body, {fields: Object.keys(req.body)})
+          .then(() => res.status(200).send(user))
+          .then(err => res.status(400).send(err));
+      })
+      .catch(err => res.status(400).send(err));
   },
 };
