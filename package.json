@@ -1,8 +1,7 @@
 {
   "name": "gutsy-api",
   "version": "1.0.0",
-  "description":
-    "A climbing guide contains only accurate and up-to-date information!",
+  "description": "A climbing guide contains only accurate and up-to-date information!",
   "main": "index.js",
   "author": "Leo Qiu",
   "license": "MIT",
@@ -11,26 +10,20 @@
     "node": ">= 6.0.0",
     "yarn": ">= 0.18.0"
   },
-
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "start": "nodemon ./src/index.js --exec babel-node",
-    "test":
-      "NODE_ENV=test yarn run test-prepare ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
+    "test": "NODE_ENV=test yarn run test-prepare ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
     "test-watch": "nodemon --exec 'yarn test'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
     "test-prepare": "sequelize db:migrate:undo:all ; yarn run migrate ",
-    "dev-prepare":
-      "sequelize db:migrate:undo:all ; yarn run migrate ; yarn run seed",
-    "lint":
-      "node_modules/.bin/eslint --fix --ext \".js\" --ignore-pattern node_modules --quiet .",
-    "prettier":
-      "prettier --single-quote --bracket-spacing false --trailing-comma es5 --write '{src,__{tests,mocks}__}/**/*.js'"
+    "dev-prepare": "sequelize db:migrate:undo:all ; yarn run migrate ; yarn run seed",
+    "lint": "node_modules/.bin/eslint --fix --ext \".js\" --ignore-pattern node_modules --quiet .",
+    "prettier": "prettier --single-quote --bracket-spacing false --trailing-comma es5 --write '{src,__{tests,mocks}__}/**/*.js'"
   },
   "dependencies": {
     "assert": "^1.4.1",
-    "babel-eslint": "^7.2.3",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -53,6 +46,7 @@
     "istanbul": "^0.4.5",
     "jsonwebtoken": "^8.1.0",
     "mocha": "^3.3.0",
+    "mocha-lcov-reporter": "^1.3.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.12.1",
     "pg": "^6.4.1",
