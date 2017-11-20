@@ -1,6 +1,6 @@
 # gutsy-api
 
-[ ![Codeship Status for leogoesger/gutsy-api](https://app.codeship.com/projects/50c67ac0-af86-0135-f821-4af399b34749/status?branch=master)](https://app.codeship.com/projects/257499)
+[![Build Status](https://travis-ci.org/leogoesger/gutsy-api.svg?branch=master)](https://travis-ci.org/leogoesger/gutsy-api)
 >
 
 ## About
