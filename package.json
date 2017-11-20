@@ -16,7 +16,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "start": "nodemon ./src/index.js --exec babel-node",
     "test":
-      "NODE_ENV=test yarn run test-prepare && mocha test/service --require babel-register --require babel-polyfill",
+      "NODE_ENV=test yarn run test-prepare ; NODE_ENV=test mocha test/service --require babel-register --require babel-polyfill",
     "test-watch": "nodemon --exec 'yarn test'",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all",
