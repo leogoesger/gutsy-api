@@ -2,6 +2,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Area = sequelize.define('Area', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     name: {
       type: DataTypes.TEXT,
       allowNull: false,

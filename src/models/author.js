@@ -2,6 +2,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Author = sequelize.define('Author', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     firstName: {
       type: DataTypes.TEXT,
       allowNull: false,

@@ -1,6 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Route = sequelize.define('Route', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     name: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -33,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'books',
     });
     Route.belongsToMany(models.User, {
-      through: 'UserRoutes',
+      through: models.UserRoute,
       foreignKey: 'userId',
       as: 'users',
     });
