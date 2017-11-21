@@ -1,9 +1,9 @@
-import chai from 'chai';
-import assert from 'assert';
-import app from '../../src/app';
-import chaiHttp from 'chai-http';
-import db from '../../src/models';
-import factories from '../factories';
+const chai = require('chai');
+const assert = require('assert');
+const app = require('../../src/app');
+const chaiHttp = require('chai-http');
+const factories = require('../factories');
+const db = require('../../src/models');
 
 // import dotenv from "dotenv";
 // dotenv.config({path: ".env.test"});
