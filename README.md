@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/leogoesger/gutsy-api.svg?branch=master)](https://travis-ci.org/leogoesger/gutsy-api)
 [![Coverage Status](https://coveralls.io/repos/github/leogoesger/gutsy-api/badge.svg?branch=master)](https://coveralls.io/github/leogoesger/gutsy-api?branch=master)>
+[![Known Vulnerabilities](https://snyk.io/test/github/leogoesger/gutsy-api/badge.svg)](https://snyk.io/test/github/leogoesger/gutsy-api)
 
 ## About
 
@@ -34,6 +35,10 @@ This project uses [NodeJS](https://nodejs.org/), [ExpressJS](https://expressjs.c
 
 Simply run `yarn test` and all your tests in the `test/` directory will be run.
 
+## CI
+
+It uses [Travis-CI](https://travis-ci.org/) and [Coveralls](https://coveralls.io/).
+
 ## Sequelize CLI
 
 ```
@@ -45,6 +50,16 @@ $ sequelize model:create --name TodoItem --attributes content:string,complete:bo
 ## Help
 
 For more information on all the things you can do with Sequelize CLI visit [sequelize cli ](https://github.com/sequelize/cli).
+
+## Scripts
+
+```
+"test": "NODE_ENV=test yarn run test-prepare ; NODE_ENV=test npm run mocha", # Clear database before all the tests are run
+"test-cover": "NODE_ENV=test nyc --reporter=text npm run mocha",             # Generate test coverage report locally
+"test-coverage": "nyc report --reporter=text-lcov | coveralls",              # Generate test coverage and send it to Coveralls
+
+```
+
 
 ## Options
 
