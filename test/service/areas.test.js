@@ -9,7 +9,7 @@ const db = require('../../src/models');
 // dotenv.config({path: ".env.test"});
 chai.use(chaiHttp);
 
-describe("'regions'service", () => {
+describe("'areas'service", () => {
   beforeEach(async () => {
     await db.sequelize.sync({force: true, logging: false});
   });
