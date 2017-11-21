@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Book.associate = models => {
     Book.belongsToMany(models.Route, {
-      through: 'BookRoutes',
+      through: models.BookRoute,
       foreignKey: 'routeId',
       as: 'routes',
     });
