@@ -8,7 +8,7 @@ const getToken = require('../helpers/getToken');
 
 chai.use(chaiHttp);
 
-describe.only("'userRoutes'service", () => {
+describe("'userRoutes'service", () => {
   beforeEach(async () => {
     await db.sequelize.sync({force: true, logging: false});
   });
