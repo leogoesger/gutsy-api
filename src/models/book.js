@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'authors',
     });
     Book.belongsToMany(models.User, {
-      through: 'UserBooks',
+      through: models.UserBook,
       foreignKey: 'userId',
       as: 'users',
     });

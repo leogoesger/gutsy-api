@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    status: DataTypes.TEXT,
     userId: DataTypes.INTEGER,
     bookId: DataTypes.INTEGER,
   });
