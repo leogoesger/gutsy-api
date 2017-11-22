@@ -2,6 +2,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Author = sequelize.define('Author', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     firstName: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -17,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   Author.associate = models => {
     Author.belongsToMany(models.Book, {
-      through: 'AuthorBooks',
-      foreignKey: 'bookId',
+      through: models.AuthorBook,
+      foreignKey: 'authorId',
       as: 'books',
     });
   };

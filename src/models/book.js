@@ -1,6 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Book = sequelize.define('Book', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     title: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -16,18 +22,18 @@ module.exports = (sequelize, DataTypes) => {
   });
   Book.associate = models => {
     Book.belongsToMany(models.Route, {
-      through: 'BookRoutes',
-      foreignKey: 'routeId',
+      through: models.BookRoute,
+      foreignKey: 'bookId',
       as: 'routes',
     });
     Book.belongsToMany(models.Author, {
-      through: 'AuthorBooks',
-      foreignKey: 'authorId',
+      through: models.AuthorBook,
+      foreignKey: 'bookId',
       as: 'authors',
     });
     Book.belongsToMany(models.User, {
-      through: 'UserBooks',
-      foreignKey: 'userId',
+      through: models.UserBook,
+      foreignKey: 'bookId',
       as: 'users',
     });
   };

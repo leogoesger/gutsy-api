@@ -3,6 +3,12 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     role: {
       type: DataTypes.ENUM,
       values: ['CUSTOMER', 'ADMIN', 'SUPER_ADMIN', 'AUTHOR', 'BOLTER'],
@@ -69,13 +75,13 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = models => {
     User.belongsToMany(models.Route, {
-      through: 'UserRoutes',
-      foreignKey: 'routeId',
+      through: models.UserRoute,
+      foreignKey: 'userId',
       as: 'routes',
     });
     User.belongsToMany(models.Book, {
-      through: 'UserBooks',
-      foreignKey: 'bookId',
+      through: models.UserBook,
+      foreignKey: 'userId',
       as: 'books',
     });
 
