@@ -29,4 +29,37 @@ describe("'areas'service", () => {
       .send(dummy);
     assert.equal(res.body.name, dummy.name);
   });
+
+  it('should List areas', async () => {
+    await factories.create('area');
+    await factories.create('area');
+    const res = await chai.request(app).get('/api/areas');
+    assert.equal(res.body.length, 2);
+  });
+
+  it('should SHOW area', async () => {
+    await factories.create('area');
+    const res = await chai.request(app).get('/api/areas/1');
+    assert.equal(res.body.regionId, 1);
+  });
+
+  it('should UPDATE area', async () => {
+    const area = await factories.create('area');
+    const dummy = {name: 'updated_name'};
+    const res = await chai
+      .request(app)
+      .put(`/api/areas/${area.dataValues.id}`)
+      .send(dummy);
+    assert.equal(res.body.name, dummy.name);
+  });
+
+  it('should DELETE area', async () => {
+    await factories.create('area');
+    await factories.create('area');
+    const res = await chai.request(app).get('/api/areas');
+    assert.equal(res.body.length, 2);
+    await chai.request(app).delete('/api/areas/1');
+    const res2 = await chai.request(app).get('/api/areas');
+    assert.equal(res2.body.length, 1);
+  });
 });

@@ -58,4 +58,5 @@ module.exports = app => {
   app.post('/signup', usersController.signUp);
   app.post('/login', usersController.login);
   app.get('/users/me', authenticate, usersController.getMe);
+  // app.put('/update', authenticate, usersController.update);
 };

@@ -13,26 +13,27 @@ describe("'userRoutes'service", () => {
     await db.sequelize.sync({force: true, logging: false});
   });
 
-  it('should POST userRoute', async () => {
+  it('should POST userBook', async () => {
     const user = await factories.create('user');
-    const route = await factories.create('route');
+    const book = await factories.create('book');
     const dummy = {
       userId: user.dataValues.id,
-      routeId: route.dataValues.id,
+      bookId: book.dataValues.id,
     };
     const res = await chai
       .request(app)
-      .post('/api/userRoutes')
+      .post('/api/userBooks')
       .send(dummy);
     assert.equal(res.body.userId, dummy.userId);
+    assert.equal(res.body.bookId, dummy.bookId);
   });
 
-  it('should LIST Routes under user', async () => {
-    await factories.create('userRoute');
+  it('should LIST Books under user', async () => {
+    await factories.create('userBook');
     const res = await chai
       .request(app)
       .get('/users/me')
       .set('x-auth', getToken());
-    assert.equal(res.body.routes.length, 1);
+    assert.equal(res.body.books.length, 1);
   });
 });
