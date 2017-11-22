@@ -12,12 +12,6 @@ const authorBooksController = require('../controllers').authorBooks;
 const bookRoutesController = require('../controllers').bookRoutes;
 
 module.exports = app => {
-  app.get('/api', (req, res) =>
-    res.status(200).send({
-      message: 'region api',
-    })
-  );
-
   app.post('/api/regions', regionsController.create);
   app.get('/api/regions', regionsController.list);
   app.get('/api/regions/:regionId', regionsController.show);
@@ -58,4 +52,5 @@ module.exports = app => {
   app.post('/signup', usersController.signUp);
   app.post('/login', usersController.login);
   app.get('/users/me', authenticate, usersController.getMe);
+  // app.put('/update', authenticate, usersController.update);
 };

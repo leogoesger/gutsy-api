@@ -10,10 +10,4 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 require('./routes')(app);
 
-app.get('*', (req, res) =>
-  res.status(200).send({
-    message: 'App is running',
-  })
-);
-
 module.exports = app;
