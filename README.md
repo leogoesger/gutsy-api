@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/leogoesger/gutsy-api.svg?branch=master)](https://travis-ci.org/leogoesger/gutsy-api)
 [![Coverage Status](https://coveralls.io/repos/github/leogoesger/gutsy-api/badge.svg?branch=master)](https://coveralls.io/github/leogoesger/gutsy-api?branch=master)>
-[![Known Vulnerabilities](https://snyk.io/test/github/leogoesger/gutsy-api/badge.svg)](https://snyk.io/test/github/leogoesger/gutsy-api)
 
 ## About
 
