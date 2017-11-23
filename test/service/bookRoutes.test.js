@@ -27,6 +27,16 @@ describe("'bookRoutes'service", () => {
     assert.equal(res.body.bookId, dummy.bookId);
   });
 
+  it('should return 400', async () => {
+    await chai
+      .request(app)
+      .post('/api/bookRoutes')
+      .send({bookId: 1})
+      .catch(err => {
+        assert.equal(err.response.status, 400);
+      });
+  });
+
   it('should LIST routes under book', async () => {
     await factories.create('bookRoute');
     const res = await chai.request(app).get('/api/routes/1');

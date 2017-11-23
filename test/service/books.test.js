@@ -59,4 +59,28 @@ describe("'books'service", () => {
     assert.equal(res.body.length, 1);
     assert.equal(res.body[0].title, book.dataValues.title);
   });
+
+  it('should NOT UPDATE book unknown', async () => {
+    await factories.create('book');
+    const dummy = {title: 'updated_title'};
+    await chai
+      .request(app)
+      .put('/api/books/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should NOT DELETE book unknown', async () => {
+    await factories.create('book');
+    const dummy = {title: 'updated_title'};
+    await chai
+      .request(app)
+      .delete('/api/books/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });

@@ -30,21 +30,25 @@ module.exports = {
     })
       .then(area => {
         if (!area) {
-          return res.status(400).send({message: 'Area not found'});
+          return res.status(404).send({message: 'Area not found'});
         }
         return area
           .update(req.body, {fields: Object.keys(req.body)})
           .then(() => res.status(200).send(area))
           .catch(err => res.status(400).send(err));
       })
-      .catch(err => res.status(400).send(err));
+      .catch(err =>
+        res
+          .status(400)
+          .send({message: 'Something happened updating area!', error: err})
+      );
   },
 
   delete(req, res) {
     return Area.findById(req.params.areaId)
       .then(area => {
         if (!area) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'no area',
           });
         }
@@ -53,6 +57,10 @@ module.exports = {
           .then(() => res.status(204).send({message: 'deleted item'}))
           .catch(err => res.status(400).send(err));
       })
-      .catch(err => res.status(400).send(err));
+      .catch(err =>
+        res
+          .status(400)
+          .send({message: 'Something happened deleting area!', error: err})
+      );
   },
 };

@@ -59,4 +59,28 @@ describe("'authors'service", () => {
     assert.equal(res.body.length, 1);
     assert.equal(res.body[0].title, author.dataValues.title);
   });
+
+  it('should NOT UPDATE author unknown', async () => {
+    await factories.create('author');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .put('/api/authors/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should NOT DELETE author unknown', async () => {
+    await factories.create('author');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .delete('/api/authors/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });
