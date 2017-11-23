@@ -27,6 +27,16 @@ describe("'authorBooks'service", () => {
     assert.equal(res.body.bookId, dummy.bookId);
   });
 
+  it('should return 400', async () => {
+    await chai
+      .request(app)
+      .post('/api/authorBooks')
+      .send({authorId: 1})
+      .catch(err => {
+        assert.equal(err.response.status, 400);
+      });
+  });
+
   it('should LIST Books under author', async () => {
     await factories.create('authorBook');
     const res = await chai.request(app).get('/api/authors/1');

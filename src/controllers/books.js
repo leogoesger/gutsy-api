@@ -37,7 +37,7 @@ module.exports = {
     })
       .then(book => {
         if (!book) {
-          return res.status(400).send({message: 'Book not found'});
+          return res.status(404).send({message: 'Book not found'});
         }
         return book
           .update(req.body, {fields: Object.keys(req.body)})
@@ -51,8 +51,8 @@ module.exports = {
     return Book.findById(req.params.bookId)
       .then(book => {
         if (!book) {
-          return res.status(400).send({
-            message: 'no book',
+          return res.status(404).send({
+            message: 'Book not found',
           });
         }
         return book

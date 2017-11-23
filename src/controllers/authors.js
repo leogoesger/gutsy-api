@@ -28,7 +28,7 @@ module.exports = {
     return Author.findById(req.params.authorId)
       .then(author => {
         if (!author) {
-          return res.status(400).send({message: 'Author not found'});
+          return res.status(404).send({message: 'Author not found'});
         }
         return author
           .update(req.body, {fields: Object.keys(req.body)})
@@ -42,7 +42,7 @@ module.exports = {
     return Author.findById(req.params.authorId)
       .then(author => {
         if (!author) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'no author',
           });
         }

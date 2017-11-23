@@ -56,4 +56,28 @@ describe("'routes'service", () => {
     const res = await chai.request(app).get('/api/routes/2');
     assert.equal(res.body.name, route.dataValues.name);
   });
+
+  it('should NOT UPDATE route unknown', async () => {
+    await factories.create('route');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .put('/api/routes/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should NOT DELETE route unknown', async () => {
+    await factories.create('route');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .delete('/api/routes/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });

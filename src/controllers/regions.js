@@ -28,7 +28,7 @@ module.exports = {
     return Region.findById(req.params.regionId)
       .then(region => {
         if (!region) {
-          return res.status(400).send({message: 'Region not found'});
+          return res.status(404).send({message: 'Region not found'});
         }
         return region
           .update(req.body, {fields: Object.keys(req.body)})
@@ -42,7 +42,7 @@ module.exports = {
     return Region.findById(req.params.regionId)
       .then(region => {
         if (!region) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'no region',
           });
         }

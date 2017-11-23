@@ -28,7 +28,7 @@ module.exports = {
     })
       .then(route => {
         if (!route) {
-          return err => res.status(400).send(err);
+          return res.status(404).send({message: 'Climbing route not found'});
         }
         return route
           .update(req.body, {fields: Object.keys(req.body)})
@@ -45,6 +45,9 @@ module.exports = {
       },
     })
       .then(route => {
+        if (!route) {
+          return res.status(404).send({message: 'Climbing route not found'});
+        }
         return route
           .destroy()
           .then(() => res.status(204).send({message: 'Deleted'}))

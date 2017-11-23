@@ -5,8 +5,6 @@ const chaiHttp = require('chai-http');
 const factories = require('../factories');
 const db = require('../../src/models');
 
-// import dotenv from "dotenv";
-// dotenv.config({path: ".env.test"});
 chai.use(chaiHttp);
 
 describe("'areas'service", () => {
@@ -61,5 +59,38 @@ describe("'areas'service", () => {
     await chai.request(app).delete('/api/areas/1');
     const res2 = await chai.request(app).get('/api/areas');
     assert.equal(res2.body.length, 1);
+  });
+
+  it('should NOT UPDATE area unknown', async () => {
+    await factories.create('area');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .put('/api/areas/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should NOT DELETE area unknown', async () => {
+    await factories.create('area');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .delete('/api/areas/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should return 400 area unknown', async () => {
+    await chai
+      .request(app)
+      .delete('/api/areas/a')
+      .catch(err => {
+        assert.equal(err.response.status, 400);
+      });
   });
 });

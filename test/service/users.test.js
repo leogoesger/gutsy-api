@@ -4,8 +4,6 @@ const app = require('../../src/app');
 const chaiHttp = require('chai-http');
 const db = require('../../src/models');
 
-// import dotenv from "dotenv";
-// dotenv.config({path: ".env.test"});
 chai.use(chaiHttp);
 
 describe("'users'service", () => {

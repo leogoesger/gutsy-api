@@ -5,8 +5,6 @@ const chaiHttp = require('chai-http');
 const factories = require('../factories');
 const db = require('../../src/models');
 
-// import dotenv from "dotenv";
-// dotenv.config({path: ".env.test"});
 chai.use(chaiHttp);
 
 describe("'regions'service", () => {
@@ -62,5 +60,29 @@ describe("'regions'service", () => {
     await chai.request(app).delete('/api/regions/1');
     const res2 = await chai.request(app).get('/api/regions');
     assert.equal(res2.body.length, 0);
+  });
+
+  it('should NOT UPDATE region unknown', async () => {
+    await factories.create('region');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .put('/api/regions/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should NOT DELETE region unknown', async () => {
+    await factories.create('region');
+    const dummy = {name: 'updated_name'};
+    await chai
+      .request(app)
+      .delete('/api/regions/2')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
   });
 });
