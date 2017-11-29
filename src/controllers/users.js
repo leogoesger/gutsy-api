@@ -18,7 +18,10 @@ module.exports = {
       })
     )
       .then(() => {
-        const myToken = jwt.sign({email: req.body.email}, 'leogoesger');
+        const myToken = jwt.sign(
+          {email: req.body.email},
+          process.env.CRYPTO_KEY
+        );
         res.status(200).send(myToken);
       })
       .catch(err => res.status(400).send(err));
@@ -37,7 +40,10 @@ module.exports = {
     })
       .then(user => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          const myToken = jwt.sign({email: req.body.email}, 'leogoesger');
+          const myToken = jwt.sign(
+            {email: req.body.email},
+            process.env.CRYPTO_KEY
+          );
           res.status(200).json(myToken);
         } else {
           res.status(404).send({message: 'Wrong Password'});
