@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
   User.findByToken = token => {
     let decoded;
     try {
-      decoded = jwt.verify(token, 'leogoesger');
+      decoded = jwt.verify(token, process.env.CRYPTO_KEY);
     } catch (e) {
       return Promise.reject();
     }
