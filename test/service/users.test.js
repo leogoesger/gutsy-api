@@ -69,7 +69,7 @@ describe("'users'service", () => {
     const res_2 = await chai
       .request(app)
       .get('/users/me')
-      .set('x-auth', res.text);
+      .set('gutsyJwt', res.text);
     assert.equal(res_2.body.firstName, dummy.firstName);
   });
 });
