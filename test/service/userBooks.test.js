@@ -43,7 +43,7 @@ describe("'userRoutes'service", () => {
     const res = await chai
       .request(app)
       .get('/users/me')
-      .set('x-auth', getToken());
+      .set('gutsyJwt', getToken());
     assert.equal(res.body.books.length, 1);
   });
 });

@@ -17,12 +17,12 @@ module.exports = {
         password: bcrypt.hashSync(req.body.password, 10),
       })
     )
-      .then(() => {
-        const myToken = jwt.sign(
-          {email: req.body.email},
+      .then(user => {
+        const gutsyJwt = jwt.sign(
+          {firstName: user.firstName, email: req.body.email},
           process.env.CRYPTO_KEY
         );
-        res.status(200).send(myToken);
+        res.status(200).send({gutsyJwt, user});
       })
       .catch(err => res.status(400).send(err));
   },
@@ -40,11 +40,11 @@ module.exports = {
     })
       .then(user => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          const myToken = jwt.sign(
-            {email: req.body.email},
+          const gutsyJwt = jwt.sign(
+            {firstName: user.firstName, email: req.body.email},
             process.env.CRYPTO_KEY
           );
-          res.status(200).json(myToken);
+          res.status(200).send({gutsyJwt, user});
         } else {
           res.status(404).send({message: 'Wrong Password'});
         }
@@ -62,18 +62,4 @@ module.exports = {
       .then(user => res.status(200).send(user))
       .catch(err => res.status(404).send(err));
   },
-
-  // update(req, res) {
-  //   User.findById(req.user.id)
-  //     .then(user => {
-  //       if (!user) {
-  //         return err => res.status(400).send(err);
-  //       }
-  //       return user
-  //         .update(req.body, {fields: Object.keys(req.body)})
-  //         .then(() => res.status(200).send(user))
-  //         .then(err => res.status(400).send(err));
-  //     })
-  //     .catch(err => res.status(400).send(err));
-  // },
 };

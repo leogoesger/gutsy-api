@@ -1,7 +1,7 @@
 const User = require('../models').User;
 
 const authenticate = (req, res, next) => {
-  const token = req.header('x-auth');
+  const token = req.header('gutsyJwt');
   User.findByToken(token)
     .then(user => {
       if (!user) {
@@ -12,7 +12,7 @@ const authenticate = (req, res, next) => {
       next();
     })
     .catch(e => {
-      res.status(401).send({message: 'Autho did not work!', error: e});
+      res.status(401).send({message: 'Authentication did not work!', error: e});
     });
 };
 
