@@ -1,3 +1,4 @@
+const Op = require('sequelize').Op;
 const Route = require('../models').Route;
 const User = require('../models').User;
 const Book = require('../models').Book;
@@ -56,5 +57,20 @@ module.exports = {
           );
       })
       .catch(err => res.status(400).send(err));
+  },
+
+  search(req, res) {
+    return Route.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${req.body.name}%`,
+        },
+      },
+    }).then(routes => {
+      if (!routes) {
+        return res.status(404).send({message: 'Climbing route not found'});
+      }
+      return res.status(200).send(routes);
+    });
   },
 };

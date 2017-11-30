@@ -1,3 +1,4 @@
+const Op = require('sequelize').Op;
 const Book = require('../models').Book;
 const Route = require('../models').Route;
 const Author = require('../models').Author;
@@ -61,5 +62,20 @@ module.exports = {
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
+  },
+
+  search(req, res) {
+    return Book.findAll({
+      where: {
+        title: {
+          [Op.iLike]: `%${req.body.title}%`,
+        },
+      },
+    }).then(books => {
+      if (!books) {
+        return res.status(404).send({message: 'Book not found'});
+      }
+      return res.status(200).send(books);
+    });
   },
 };
