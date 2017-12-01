@@ -1,3 +1,4 @@
+const Op = require('sequelize').Op;
 const Area = require('../models').Area;
 const Route = require('../models').Route;
 
@@ -62,5 +63,20 @@ module.exports = {
           .status(400)
           .send({message: 'Something happened deleting area!', error: err})
       );
+  },
+
+  search(req, res) {
+    return Area.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${req.body.name}%`,
+        },
+      },
+    }).then(areas => {
+      if (!areas) {
+        return res.status(404).send({message: 'Area not found'});
+      }
+      return res.status(200).send(areas);
+    });
   },
 };

@@ -80,4 +80,61 @@ describe("'routes'service", () => {
         assert.equal(err.response.status, 404);
       });
   });
+
+  it('should return searched routes', async () => {
+    const area = await factories.create('area');
+    const dummy = {
+      name: 'New route one',
+      description: 'describe',
+      grade: 'V5',
+      category: 'trad',
+      open: true,
+      areaId: area.dataValues.id,
+    };
+    const dummy2 = {
+      name: 'New route two',
+      description: 'describe',
+      grade: 'V5',
+      category: 'trad',
+      open: true,
+      areaId: area.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/routes')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/routes')
+      .send(dummy2);
+
+    const res = await chai
+      .request(app)
+      .post('/api/search-routes')
+      .send({name: 'route'});
+    assert.equal(res.body.length, 2);
+  });
+
+  it('should return 400 for searching non-exist routes', async () => {
+    const area = await factories.create('area');
+    const dummy = {
+      name: 'New route one',
+      description: 'describe',
+      grade: 'V5',
+      category: 'trad',
+      open: true,
+      areaId: area.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/routes')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/search-routes')
+      .send({name: 'xxx'})
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });

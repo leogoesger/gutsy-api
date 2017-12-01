@@ -85,4 +85,50 @@ describe("'regions'service", () => {
         assert.equal(err.response.status, 404);
       });
   });
+
+  it('should return searched regions', async () => {
+    const dummy = {
+      name: 'New Region one',
+      open: true,
+      description: 'This is a cool region!',
+    };
+    const dummy2 = {
+      name: 'New Region two',
+      open: true,
+      description: 'This is a cool region!',
+    };
+    await chai
+      .request(app)
+      .post('/api/regions')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/regions')
+      .send(dummy2);
+
+    const res = await chai
+      .request(app)
+      .post('/api/search-regions')
+      .send({name: 'region'});
+    assert.equal(res.body.length, 2);
+  });
+
+  it('should return 400 for searching non-exist regions', async () => {
+    const dummy = {
+      name: 'New Region one',
+      open: true,
+      description: 'This is a cool region!',
+    };
+    await chai
+      .request(app)
+      .post('/api/regions')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/search-regions')
+      .send({name: 'xxx'})
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });

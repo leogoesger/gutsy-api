@@ -1,3 +1,4 @@
+const Op = require('sequelize').Op;
 const Region = require('../models').Region;
 const Area = require('../models').Area;
 
@@ -52,5 +53,20 @@ module.exports = {
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
+  },
+
+  search(req, res) {
+    return Region.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${req.body.name}%`,
+        },
+      },
+    }).then(regions => {
+      if (!regions) {
+        return res.status(404).send({message: 'Regions not found'});
+      }
+      return res.status(200).send(regions);
+    });
   },
 };
