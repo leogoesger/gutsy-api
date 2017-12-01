@@ -83,4 +83,50 @@ describe("'books'service", () => {
         assert.equal(err.response.status, 404);
       });
   });
+
+  it('should return searched books', async () => {
+    const dummy = {
+      title: 'new book one',
+      description: 'pass',
+      price: '34.55',
+    };
+    const dummy2 = {
+      title: 'book two',
+      description: 'pass',
+      price: '34.55',
+    };
+    await chai
+      .request(app)
+      .post('/api/books')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/books')
+      .send(dummy2);
+
+    const res = await chai
+      .request(app)
+      .post('/api/search-books')
+      .send({title: 'book'});
+    assert.equal(res.body.length, 2);
+  });
+
+  it('should return 400 for searching non-exist books', async () => {
+    const dummy = {
+      title: 'new book one',
+      description: 'pass',
+      price: '34.55',
+    };
+    await chai
+      .request(app)
+      .post('/api/books')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/search-books')
+      .send({title: 'xxx'})
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });

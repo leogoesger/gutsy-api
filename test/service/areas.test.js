@@ -93,4 +93,58 @@ describe("'areas'service", () => {
         assert.equal(err.response.status, 400);
       });
   });
+
+  it('should return searched areas', async () => {
+    const region = await factories.create('region');
+    const dummy = {
+      name: 'New area one',
+      open: true,
+      description: 'This is a cool area!',
+      gps: '122.123, 123.4123',
+      regionId: region.dataValues.id,
+    };
+    const dummy2 = {
+      name: 'New area two',
+      open: true,
+      description: 'This is a cool area!',
+      gps: '122.123, 123.4123',
+      regionId: region.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/areas')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/areas')
+      .send(dummy2);
+    const res = await chai
+      .request(app)
+      .post('/api/search-areas')
+      .send({name: 'area'});
+    assert.equal(res.body.length, 2);
+  });
+
+  it('should return 400 for searching non-exist areas', async () => {
+    const region = await factories.create('region');
+    const dummy = {
+      name: 'New area one',
+      open: true,
+      description: 'This is a cool area!',
+      gps: '122.123, 123.4123',
+      regionId: region.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/areas')
+      .send(dummy);
+
+    await chai
+      .request(app)
+      .post('/api/search-areas')
+      .send({name: 'xxx'})
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
 });

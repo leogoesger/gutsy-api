@@ -13,14 +13,14 @@ describe("'routes'service", () => {
   });
 
   it('should POST route', async () => {
-    const area = await factories.create('area');
+    const subarea = await factories.create('subarea');
     const dummy = {
       name: 'abc',
       description: 'describe',
       grade: 'V5',
       category: 'trad',
       open: true,
-      areaId: area.dataValues.id,
+      subareaId: subarea.dataValues.id,
     };
 
     const res = await chai
@@ -28,7 +28,7 @@ describe("'routes'service", () => {
       .post('/api/routes')
       .send(dummy);
     assert.equal(res.body.name, dummy.name);
-    assert.equal(res.body.areaId, dummy.areaId);
+    assert.equal(res.body.subareaId, dummy.subareaId);
   });
 
   it('should SHOW route', async () => {
@@ -76,6 +76,63 @@ describe("'routes'service", () => {
       .request(app)
       .delete('/api/routes/2')
       .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 404);
+      });
+  });
+
+  it('should return searched routes', async () => {
+    const subarea = await factories.create('subarea');
+    const dummy = {
+      name: 'New route one',
+      description: 'describe',
+      grade: 'V5',
+      category: 'trad',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    const dummy2 = {
+      name: 'New route two',
+      description: 'describe',
+      grade: 'V5',
+      category: 'trad',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/routes')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/routes')
+      .send(dummy2);
+
+    const res = await chai
+      .request(app)
+      .post('/api/search-routes')
+      .send({name: 'route'});
+    assert.equal(res.body.length, 2);
+  });
+
+  it('should return 400 for searching non-exist routes', async () => {
+    const subarea = await factories.create('subarea');
+    const dummy = {
+      name: 'New route one',
+      description: 'describe',
+      grade: 'V5',
+      category: 'trad',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/routes')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/search-routes')
+      .send({name: 'xxx'})
       .catch(err => {
         assert.equal(err.response.status, 404);
       });

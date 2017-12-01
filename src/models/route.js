@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Route.associate = models => {
-    Route.belongsTo(models.Area, {
-      foreignKey: 'areaId',
+    Route.belongsTo(models.Subarea, {
+      foreignKey: 'subareaId',
     });
     Route.belongsToMany(models.Book, {
       through: models.BookRoute,
@@ -43,10 +43,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'routeId',
       as: 'users',
     });
-    // Route.hasMany(models.UserRoute, {
-    //   foreignKey: "routeId",
-    //   as: "userRoutes"
-    // });
   };
   return Route;
 };

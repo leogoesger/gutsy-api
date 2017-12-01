@@ -4,6 +4,7 @@ const regionsController = require('../controllers').regions;
 const routesController = require('../controllers').routes;
 const usersController = require('../controllers').users;
 const areasController = require('../controllers').areas;
+const subareasController = require('../controllers').subareas;
 const authorsController = require('../controllers').authors;
 const booksController = require('../controllers').books;
 const userRoutesController = require('../controllers').userRoutes;
@@ -17,17 +18,27 @@ module.exports = app => {
   app.get('/api/regions/:regionId', regionsController.show);
   app.put('/api/regions/:regionId', regionsController.update);
   app.delete('/api/regions/:regionId', regionsController.delete);
+  app.post('/api/search-regions', regionsController.search);
 
   app.post('/api/areas', areasController.create);
   app.get('/api/areas', areasController.list);
   app.get('/api/areas/:areaId', areasController.show);
   app.put('/api/areas/:areaId', areasController.update);
   app.delete('/api/areas/:areaId', areasController.delete);
+  app.post('/api/search-areas', areasController.search);
+
+  app.post('/api/subareas', subareasController.create);
+  app.get('/api/subareas', subareasController.list);
+  app.get('/api/subareas/:subareaId', subareasController.show);
+  app.put('/api/subareas/:subareaId', subareasController.update);
+  app.delete('/api/subareas/:subareaId', subareasController.delete);
+  app.post('/api/search-subareas', subareasController.search);
 
   app.post('/api/routes', routesController.create);
   app.get('/api/routes/:routeId', routesController.show);
   app.put('/api/routes/:routeId', routesController.update);
   app.delete('/api/routes/:routeId', routesController.delete);
+  app.post('/api/search-routes', routesController.search);
 
   app.post('/api/authors', authorsController.create);
   app.get('/api/authors', authorsController.list);
@@ -40,6 +51,7 @@ module.exports = app => {
   app.get('/api/books/:bookId', booksController.show);
   app.put('/api/books/:bookId', booksController.update);
   app.delete('/api/books/:bookId', booksController.delete);
+  app.post('/api/search-books', booksController.search);
 
   app.post('/api/userRoutes', userRoutesController.create);
 

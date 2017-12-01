@@ -8,7 +8,7 @@ module.exports = factory => {
       description: 'Ice cave',
       grade: 'V10',
       category: 'Boulder',
-      areaId: factory.assoc('area', 'id'),
+      subareaId: factory.assoc('subarea', 'id'),
     };
   });
   return route;

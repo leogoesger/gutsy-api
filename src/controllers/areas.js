@@ -1,5 +1,6 @@
+const Op = require('sequelize').Op;
 const Area = require('../models').Area;
-const Route = require('../models').Route;
+const Subarea = require('../models').Subarea;
 
 module.exports = {
   create(req, res) {
@@ -10,7 +11,7 @@ module.exports = {
 
   list(req, res) {
     return Area.findAll({
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Subarea, as: 'subareas'}],
     })
       .then(areas => res.status(200).send(areas))
       .catch(err => res.status(400).send(err));
@@ -18,7 +19,7 @@ module.exports = {
 
   show(req, res) {
     return Area.findById(req.params.areaId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Subarea, as: 'subareas'}],
     })
       .then(area => res.status(200).send(area))
       .catch(err => res.status(400).send(err));
@@ -26,7 +27,7 @@ module.exports = {
 
   update(req, res) {
     return Area.findById(req.params.areaId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Subarea, as: 'subareas'}],
     })
       .then(area => {
         if (!area) {
@@ -62,5 +63,20 @@ module.exports = {
           .status(400)
           .send({message: 'Something happened deleting area!', error: err})
       );
+  },
+
+  search(req, res) {
+    return Area.findAll({
+      where: {
+        name: {
+          [Op.iLike]: `%${req.body.name}%`,
+        },
+      },
+    }).then(areas => {
+      if (!areas) {
+        return res.status(404).send({message: 'Area not found'});
+      }
+      return res.status(200).send(areas);
+    });
   },
 };
