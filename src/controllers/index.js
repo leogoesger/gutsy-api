@@ -2,6 +2,7 @@ const regions = require('./regions');
 const routes = require('./routes');
 const users = require('./users');
 const areas = require('./areas');
+const subareas = require('./subareas');
 const authors = require('./authors');
 const books = require('./books');
 const userRoutes = require('./userRoutes');
@@ -14,6 +15,7 @@ module.exports = {
   routes,
   users,
   areas,
+  subareas,
   authors,
   books,
   userRoutes,

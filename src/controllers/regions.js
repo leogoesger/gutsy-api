@@ -63,9 +63,6 @@ module.exports = {
         },
       },
     }).then(regions => {
-      if (!regions) {
-        return res.status(404).send({message: 'Regions not found'});
-      }
       return res.status(200).send(regions);
     });
   },

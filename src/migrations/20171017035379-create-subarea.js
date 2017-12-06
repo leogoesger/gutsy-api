@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Routes', {
+    return queryInterface.createTable('Subareas', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,21 +12,14 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false,
       },
-      description: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-      },
-      grade: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-      },
-      category: {
-        type: Sequelize.TEXT,
-        allowNull: true,
-      },
       open: {
         type: Sequelize.BOOLEAN,
-        allowNull: true,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      gps: {
+        type: Sequelize.TEXT,
       },
       location: {
         type: Sequelize.JSONB,
@@ -40,17 +33,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      subareaId: {
+      areaId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Subareas',
+          model: 'Areas',
           key: 'id',
         },
       },
     });
   },
   down: queryInterface => {
-    return queryInterface.dropTable('Routes');
+    return queryInterface.dropTable('Subareas');
   },
 };

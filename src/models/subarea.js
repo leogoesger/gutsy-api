@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Area = sequelize.define('Area', {
+  const Subarea = sequelize.define('Subarea', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -29,14 +29,14 @@ module.exports = (sequelize, DataTypes) => {
       allownull: true,
     },
   });
-  Area.associate = models => {
-    Area.belongsTo(models.Region, {
-      foreignKey: 'regionId',
-    });
-    Area.hasMany(models.Subarea, {
+  Subarea.associate = models => {
+    Subarea.belongsTo(models.Area, {
       foreignKey: 'areaId',
-      as: 'subareas',
+    });
+    Subarea.hasMany(models.Route, {
+      foreignKey: 'subareaId',
+      as: 'routes',
     });
   };
-  return Area;
+  return Subarea;
 };

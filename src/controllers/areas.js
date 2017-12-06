@@ -1,17 +1,25 @@
 const Op = require('sequelize').Op;
+const Region = require('../models').Region;
 const Area = require('../models').Area;
-const Route = require('../models').Route;
+const Subarea = require('../models').Subarea;
 
 module.exports = {
-  create(req, res) {
-    return Area.create(req.body)
+  async create(req, res) {
+    const region = await Region.findById(req.body.regionId);
+    const location = {
+      regionName: region.name,
+      regionId: region.id,
+    };
+    return Area.create(
+      Object.assign(req.body, {location: JSON.stringify(location)})
+    )
       .then(area => res.status(201).send(area))
       .catch(err => res.status(400).send(err));
   },
 
   list(req, res) {
     return Area.findAll({
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Subarea, as: 'subareas'}],
     })
       .then(areas => res.status(200).send(areas))
       .catch(err => res.status(400).send(err));
@@ -19,7 +27,7 @@ module.exports = {
 
   show(req, res) {
     return Area.findById(req.params.areaId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Subarea, as: 'subareas'}],
     })
       .then(area => res.status(200).send(area))
       .catch(err => res.status(400).send(err));
@@ -27,7 +35,7 @@ module.exports = {
 
   update(req, res) {
     return Area.findById(req.params.areaId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Subarea, as: 'subareas'}],
     })
       .then(area => {
         if (!area) {
@@ -73,9 +81,6 @@ module.exports = {
         },
       },
     }).then(areas => {
-      if (!areas) {
-        return res.status(404).send({message: 'Area not found'});
-      }
       return res.status(200).send(areas);
     });
   },

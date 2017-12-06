@@ -4,6 +4,7 @@ const regionsController = require('../controllers').regions;
 const routesController = require('../controllers').routes;
 const usersController = require('../controllers').users;
 const areasController = require('../controllers').areas;
+const subareasController = require('../controllers').subareas;
 const authorsController = require('../controllers').authors;
 const booksController = require('../controllers').books;
 const userRoutesController = require('../controllers').userRoutes;
@@ -25,6 +26,13 @@ module.exports = app => {
   app.put('/api/areas/:areaId', areasController.update);
   app.delete('/api/areas/:areaId', areasController.delete);
   app.post('/api/search-areas', areasController.search);
+
+  app.post('/api/subareas', subareasController.create);
+  app.get('/api/subareas', subareasController.list);
+  app.get('/api/subareas/:subareaId', subareasController.show);
+  app.put('/api/subareas/:subareaId', subareasController.update);
+  app.delete('/api/subareas/:subareaId', subareasController.delete);
+  app.post('/api/search-subareas', subareasController.search);
 
   app.post('/api/routes', routesController.create);
   app.get('/api/routes/:routeId', routesController.show);

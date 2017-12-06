@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - "node"
+addons:
+    postgresql: "9.6"
 services:
   - postgresql
 before_script:
@@ -8,4 +10,4 @@ before_script:
 script:
   - yarn test
   - yarn lint
-after_script: yarn run test-coverage 
+after_script: yarn run test-coverage

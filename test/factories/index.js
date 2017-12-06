@@ -3,6 +3,7 @@ import factory, {SequelizeAdapter} from 'factory-girl';
 factory.setAdapter(new SequelizeAdapter());
 
 const areas = require('./area')(factory);
+const subareas = require('./subarea')(factory);
 const regions = require('./region')(factory);
 const authors = require('./author')(factory);
 const books = require('./book')(factory);
