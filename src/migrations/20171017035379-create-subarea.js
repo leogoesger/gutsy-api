@@ -21,6 +21,10 @@ module.exports = {
       gps: {
         type: Sequelize.TEXT,
       },
+      location: {
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

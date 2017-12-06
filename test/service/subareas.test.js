@@ -36,9 +36,9 @@ describe("'subareas'service", () => {
   });
 
   it('should SHOW subarea', async () => {
-    await factories.create('subarea');
+    const subarea = await factories.create('subarea');
     const res = await chai.request(app).get('/api/subareas/1');
-    assert.equal(res.body.areaId, 1);
+    assert.equal(res.body.name, subarea.dataValues.name);
   });
 
   it('should UPDATE subarea', async () => {

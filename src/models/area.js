@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    location: {
+      type: DataTypes.JSONB,
+      allownull: true,
+    },
   });
   Area.associate = models => {
     Area.belongsTo(models.Region, {

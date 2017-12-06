@@ -1,10 +1,20 @@
 const Op = require('sequelize').Op;
+const Area = require('../models').Area;
 const Subarea = require('../models').Subarea;
 const Route = require('../models').Route;
 
 module.exports = {
-  create(req, res) {
-    return Subarea.create(req.body)
+  async create(req, res) {
+    const area = await Area.findById(req.body.areaId);
+    const location = {
+      regionName: JSON.parse(area.location).region,
+      regionId: JSON.parse(area.location).regionId,
+      areaName: area.name,
+      areaId: area.id,
+    };
+    return Subarea.create(
+      Object.assign(req.body, {location: JSON.stringify(location)})
+    )
       .then(subarea => res.status(201).send(subarea))
       .catch(err => res.status(400).send(err));
   },
@@ -73,9 +83,6 @@ module.exports = {
         },
       },
     }).then(subareas => {
-      if (!subareas) {
-        return res.status(404).send({message: 'Subarea not found'});
-      }
       return res.status(200).send(subareas);
     });
   },

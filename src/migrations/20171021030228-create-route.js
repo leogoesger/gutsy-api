@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: true,
       },
+      location: {
+        type: Sequelize.JSONB,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

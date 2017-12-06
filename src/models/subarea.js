@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    location: {
+      type: DataTypes.JSONB,
+      allownull: true,
+    },
   });
   Subarea.associate = models => {
     Subarea.belongsTo(models.Area, {

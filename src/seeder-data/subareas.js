@@ -1,12 +1,13 @@
 module.exports = [
   {
-    name: 'Sad happy boulder',
+    name: 'Sad Boulder',
     open: true,
     description: 'The happiest place on earth!',
     gps: '133.232, 121.021',
     areaId: 1,
     updatedAt: '2017-11-19T17:25:28.445Z',
     createdAt: '2017-11-19T17:25:28.445Z',
+    location: JSON.stringify({region: 'Bishop', area: 'Sad boulder'}),
   },
   {
     name: 'Slap happy boulder',
@@ -16,6 +17,7 @@ module.exports = [
     areaId: 1,
     updatedAt: '2017-11-19T17:25:28.445Z',
     createdAt: '2017-11-19T17:25:28.445Z',
+    location: JSON.stringify({region: 'Bishop', area: 'Sad boulder'}),
   },
   {
     name: 'Heart Wall',
@@ -25,5 +27,6 @@ module.exports = [
     areaId: 2,
     updatedAt: '2017-11-19T17:25:28.445Z',
     createdAt: '2017-11-19T17:25:28.445Z',
+    location: JSON.stringify({region: 'Yosemite', area: 'El Cap'}),
   },
 ];

@@ -1,11 +1,23 @@
 const Op = require('sequelize').Op;
 const Route = require('../models').Route;
+const Subarea = require('../models').Subarea;
 const User = require('../models').User;
 const Book = require('../models').Book;
 
 module.exports = {
-  create(req, res) {
-    return Route.create(req.body)
+  async create(req, res) {
+    const subarea = await Subarea.findById(req.body.subareaId);
+    const location = {
+      regionName: JSON.parse(subarea.location).regionName,
+      regionId: JSON.parse(subarea.location).regionId,
+      areaName: JSON.parse(subarea.location).areaName,
+      areaId: JSON.parse(subarea.location).areaId,
+      subareaName: subarea.name,
+      subareaId: subarea.id,
+    };
+    return Route.create(
+      Object.assign(req.body, {location: JSON.stringify(location)})
+    )
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
   },
@@ -67,9 +79,6 @@ module.exports = {
         },
       },
     }).then(routes => {
-      if (!routes) {
-        return res.status(404).send({message: 'Climbing route not found'});
-      }
       return res.status(200).send(routes);
     });
   },

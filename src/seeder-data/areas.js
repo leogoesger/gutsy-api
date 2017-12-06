@@ -7,6 +7,7 @@ module.exports = [
     regionId: 1,
     updatedAt: '2017-11-19T17:25:28.445Z',
     createdAt: '2017-11-19T17:25:28.445Z',
+    location: JSON.stringify({region: 'Bishop'}),
   },
   {
     name: 'Happy boulder',
@@ -16,6 +17,7 @@ module.exports = [
     regionId: 1,
     updatedAt: '2017-11-19T17:25:28.445Z',
     createdAt: '2017-11-19T17:25:28.445Z',
+    location: JSON.stringify({region: 'Bishop'}),
   },
   {
     name: 'El Cap',
@@ -25,5 +27,6 @@ module.exports = [
     regionId: 2,
     updatedAt: '2017-11-19T17:25:28.445Z',
     createdAt: '2017-11-19T17:25:28.445Z',
+    location: JSON.stringify({region: 'Yosemite'}),
   },
 ];
