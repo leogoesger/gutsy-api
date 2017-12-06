@@ -9,6 +9,6 @@ before_script:
   - psql -c 'CREATE DATABASE gutsy_test;' -U postgres
 script:
   - yarn lint
-  - yarn test
+  - yarn test-cover
   - yarn test-coverage
 after_script: yarn run coveralls
