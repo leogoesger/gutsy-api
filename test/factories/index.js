@@ -5,6 +5,7 @@ factory.setAdapter(new SequelizeAdapter());
 const areas = require('./area')(factory);
 const subareas = require('./subarea')(factory);
 const regions = require('./region')(factory);
+const subregions = require('./subregion')(factory);
 const authors = require('./author')(factory);
 const books = require('./book')(factory);
 const routes = require('./route')(factory);

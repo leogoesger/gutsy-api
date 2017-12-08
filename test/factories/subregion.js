@@ -1,14 +1,14 @@
-const Area = require('../../src/models').Area;
+const Subregion = require('../../src/models').Subregion;
 
 module.exports = factory => {
-  const area = factory.define('area', Area, async () => {
+  const subregion = factory.define('subregion', Subregion, () => {
     return {
       name: factory.chance('first'),
       open: true,
       description: factory.chance('sentence', {words: 5}),
       gps: '122.123, 123.342',
-      subregionId: factory.assoc('subregion', 'id'),
+      regionId: factory.assoc('region', 'id'),
     };
   });
-  return area;
+  return subregion;
 };

@@ -1,6 +1,6 @@
 const Op = require('sequelize').Op;
 const Region = require('../models').Region;
-const Area = require('../models').Area;
+const Subregion = require('../models').Subregion;
 
 module.exports = {
   create(req, res) {
@@ -11,7 +11,7 @@ module.exports = {
 
   list(req, res) {
     return Region.findAll({
-      include: [{model: Area, as: 'areas'}],
+      include: [{model: Subregion, as: 'subregions'}],
     })
       .then(regions => res.status(200).send(regions))
       .catch(err => res.status(400).send(err));
@@ -19,7 +19,7 @@ module.exports = {
 
   show(req, res) {
     return Region.findById(req.params.regionId, {
-      include: [{model: Area, as: 'areas'}],
+      include: [{model: Subregion, as: 'subregions'}],
     })
       .then(region => res.status(200).send(region))
       .catch(err => res.status(400).send(err));
@@ -61,6 +61,9 @@ module.exports = {
         name: {
           [Op.iLike]: `%${req.body.name}%`,
         },
+      },
+      attributes: {
+        exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
       },
     }).then(regions => {
       return res.status(200).send(regions);

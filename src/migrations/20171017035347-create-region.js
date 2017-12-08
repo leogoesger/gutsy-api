@@ -14,11 +14,12 @@ module.exports = {
       },
       open: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
       },
       description: {
         type: Sequelize.TEXT,
-        allowNull: true,
+      },
+      gps: {
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,

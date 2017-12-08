@@ -1,6 +1,7 @@
 const authenticate = require('../middlewares/authenticate').authenticate;
 
 const regionsController = require('../controllers').regions;
+const subregionsController = require('../controllers').subregions;
 const routesController = require('../controllers').routes;
 const usersController = require('../controllers').users;
 const areasController = require('../controllers').areas;
@@ -19,6 +20,13 @@ module.exports = app => {
   app.put('/api/regions/:regionId', regionsController.update);
   app.delete('/api/regions/:regionId', regionsController.delete);
   app.post('/api/search-regions', regionsController.search);
+
+  app.post('/api/subregions', subregionsController.create);
+  app.get('/api/subregions', subregionsController.list);
+  app.get('/api/subregions/:subregionId', subregionsController.show);
+  app.put('/api/subregions/:subregionId', subregionsController.update);
+  app.delete('/api/subregions/:subregionId', subregionsController.delete);
+  app.post('/api/search-subregions', subregionsController.search);
 
   app.post('/api/areas', areasController.create);
   app.get('/api/areas', areasController.list);

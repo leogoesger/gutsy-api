@@ -1,25 +1,16 @@
 const Op = require('sequelize').Op;
+
 const Route = require('../models').Route;
-const Subarea = require('../models').Subarea;
 const User = require('../models').User;
 const Book = require('../models').Book;
-const Area = require('../models').Area;
 const Region = require('../models').Region;
+const Subregion = require('../models').Subregion;
+const Area = require('../models').Area;
+const Subarea = require('../models').Subarea;
 
 module.exports = {
   async create(req, res) {
-    const subarea = await Subarea.findById(req.body.subareaId);
-    const location = {
-      regionName: JSON.parse(subarea.location).regionName,
-      regionId: JSON.parse(subarea.location).regionId,
-      areaName: JSON.parse(subarea.location).areaName,
-      areaId: JSON.parse(subarea.location).areaId,
-      subareaName: subarea.name,
-      subareaId: subarea.id,
-    };
-    return Route.create(
-      Object.assign(req.body, {location: JSON.stringify(location)})
-    )
+    return Route.create(req.body)
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
   },
@@ -81,14 +72,7 @@ module.exports = {
         },
       },
       attributes: {
-        exclude: [
-          'id',
-          'open',
-          'location',
-          'createdAt',
-          'updatedAt',
-          'subareaId',
-        ],
+        exclude: ['id', 'open', 'createdAt', 'updatedAt', 'subareaId'],
       },
       include: [
         {
@@ -96,15 +80,7 @@ module.exports = {
           foreignKey: 'subareaId',
           as: 'subarea',
           attributes: {
-            exclude: [
-              'id',
-              'open',
-              'gps',
-              'location',
-              'createdAt',
-              'updatedAt',
-              'areaId',
-            ],
+            exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt', 'areaId'],
           },
           include: {
             model: Area,
@@ -115,18 +91,32 @@ module.exports = {
                 'id',
                 'open',
                 'gps',
-                'location',
                 'createdAt',
                 'updatedAt',
-                'regionId',
+                'subregionId',
               ],
             },
             include: {
-              model: Region,
-              foreignKey: 'regionId',
-              as: 'region',
+              model: Subregion,
+              foreignKey: 'subregionId',
+              as: 'subregion',
               attributes: {
-                exclude: ['id', 'open', 'createdAt', 'updatedAt'],
+                exclude: [
+                  'id',
+                  'open',
+                  'gps',
+                  'createdAt',
+                  'updatedAt',
+                  'regionId',
+                ],
+              },
+              include: {
+                model: Region,
+                foreignKey: 'regionId',
+                as: 'region',
+                attributes: {
+                  exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
+                },
               },
             },
           },

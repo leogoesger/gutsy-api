@@ -3,6 +3,7 @@
 module.exports = {
   authors: require('./authors'),
   regions: require('./regions'),
+  subregions: require('./subregions'),
   areas: require('./areas'),
   subareas: require('./subareas'),
   books: require('./books'),

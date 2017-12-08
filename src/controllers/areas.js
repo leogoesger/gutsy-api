@@ -2,17 +2,11 @@ const Op = require('sequelize').Op;
 const Region = require('../models').Region;
 const Area = require('../models').Area;
 const Subarea = require('../models').Subarea;
+const Subregion = require('../models').Subregion;
 
 module.exports = {
   async create(req, res) {
-    const region = await Region.findById(req.body.regionId);
-    const location = {
-      regionName: region.name,
-      regionId: region.id,
-    };
-    return Area.create(
-      Object.assign(req.body, {location: JSON.stringify(location)})
-    )
+    return Area.create(req.body)
       .then(area => res.status(201).send(area))
       .catch(err => res.status(400).send(err));
   },
@@ -80,6 +74,34 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      attributes: {
+        exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt', 'subregionId'],
+      },
+      include: [
+        {
+          model: Subregion,
+          foreignKey: 'subregionId',
+          as: 'subregion',
+          attributes: {
+            exclude: [
+              'id',
+              'open',
+              'gps',
+              'createdAt',
+              'updatedAt',
+              'regionId',
+            ],
+          },
+          include: {
+            model: Region,
+            foreignKey: 'regionId',
+            as: 'region',
+            attributes: {
+              exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
+            },
+          },
+        },
+      ],
     }).then(areas => {
       return res.status(200).send(areas);
     });

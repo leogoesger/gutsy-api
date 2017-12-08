@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Subareas', {
+    return queryInterface.createTable('Subregions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -29,17 +29,17 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      areaId: {
+      regionId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Areas',
+          model: 'Regions',
           key: 'id',
         },
       },
     });
   },
   down: queryInterface => {
-    return queryInterface.dropTable('Subareas');
+    return queryInterface.dropTable('Subregions');
   },
 };

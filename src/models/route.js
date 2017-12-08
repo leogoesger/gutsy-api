@@ -27,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },
-    location: {
-      type: DataTypes.JSONB,
-      allownull: true,
-    },
   });
 
   Route.associate = models => {

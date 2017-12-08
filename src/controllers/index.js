@@ -1,4 +1,5 @@
 const regions = require('./regions');
+const subregions = require('./subregions');
 const routes = require('./routes');
 const users = require('./users');
 const areas = require('./areas');
@@ -12,6 +13,7 @@ const bookRoutes = require('./bookRoutes');
 
 module.exports = {
   regions,
+  subregions,
   routes,
   users,
   areas,

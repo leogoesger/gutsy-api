@@ -2,20 +2,12 @@ const Op = require('sequelize').Op;
 const Area = require('../models').Area;
 const Subarea = require('../models').Subarea;
 const Route = require('../models').Route;
+const Subregion = require('../models').Subregion;
 const Region = require('../models').Region;
 
 module.exports = {
   async create(req, res) {
-    const area = await Area.findById(req.body.areaId);
-    const location = {
-      regionName: JSON.parse(area.location).region,
-      regionId: JSON.parse(area.location).regionId,
-      areaName: area.name,
-      areaId: area.id,
-    };
-    return Subarea.create(
-      Object.assign(req.body, {location: JSON.stringify(location)})
-    )
+    return Subarea.create(req.body)
       .then(subarea => res.status(201).send(subarea))
       .catch(err => res.status(400).send(err));
   },
@@ -83,12 +75,47 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      attributes: {
+        exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt', 'areaId'],
+      },
       include: [
         {
           model: Area,
           foreignKey: 'areaId',
           as: 'area',
-          include: {model: Region, foreignKey: 'regionId', as: 'region'},
+          attributes: {
+            exclude: [
+              'id',
+              'open',
+              'gps',
+              'createdAt',
+              'updatedAt',
+              'subregionId',
+            ],
+          },
+          include: {
+            model: Subregion,
+            foreignKey: 'subregionId',
+            as: 'subregion',
+            attributes: {
+              exclude: [
+                'id',
+                'open',
+                'gps',
+                'createdAt',
+                'updatedAt',
+                'regionId',
+              ],
+            },
+            include: {
+              model: Region,
+              foreignKey: 'regionId',
+              as: 'region',
+              attributes: {
+                exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
+              },
+            },
+          },
         },
       ],
     }).then(subareas => {
