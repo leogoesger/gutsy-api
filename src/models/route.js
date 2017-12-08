@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   Route.associate = models => {
     Route.belongsTo(models.Subarea, {
       foreignKey: 'subareaId',
+      as: 'subarea',
     });
     Route.belongsToMany(models.Book, {
       through: models.BookRoute,

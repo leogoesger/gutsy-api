@@ -2,6 +2,7 @@ const Op = require('sequelize').Op;
 const Area = require('../models').Area;
 const Subarea = require('../models').Subarea;
 const Route = require('../models').Route;
+const Region = require('../models').Region;
 
 module.exports = {
   async create(req, res) {
@@ -82,6 +83,14 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      include: [
+        {
+          model: Area,
+          foreignKey: 'areaId',
+          as: 'area',
+          include: {model: Region, foreignKey: 'regionId', as: 'region'},
+        },
+      ],
     }).then(subareas => {
       return res.status(200).send(subareas);
     });

@@ -3,6 +3,8 @@ const Route = require('../models').Route;
 const Subarea = require('../models').Subarea;
 const User = require('../models').User;
 const Book = require('../models').Book;
+const Area = require('../models').Area;
+const Region = require('../models').Region;
 
 module.exports = {
   async create(req, res) {
@@ -25,7 +27,7 @@ module.exports = {
   show(req, res) {
     return Route.findById(req.params.routeId, {
       include: [
-        {model: User, as: 'users'},
+        {model: User, foreignKey: 'userId', as: 'users'},
         {model: Book, foreignKey: 'bookId', as: 'books'},
       ],
     })
@@ -78,6 +80,58 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      attributes: {
+        exclude: [
+          'id',
+          'open',
+          'location',
+          'createdAt',
+          'updatedAt',
+          'subareaId',
+        ],
+      },
+      include: [
+        {
+          model: Subarea,
+          foreignKey: 'subareaId',
+          as: 'subarea',
+          attributes: {
+            exclude: [
+              'id',
+              'open',
+              'gps',
+              'location',
+              'createdAt',
+              'updatedAt',
+              'areaId',
+            ],
+          },
+          include: {
+            model: Area,
+            foreignKey: 'areaId',
+            as: 'area',
+            attributes: {
+              exclude: [
+                'id',
+                'open',
+                'gps',
+                'location',
+                'createdAt',
+                'updatedAt',
+                'regionId',
+              ],
+            },
+            include: {
+              model: Region,
+              foreignKey: 'regionId',
+              as: 'region',
+              attributes: {
+                exclude: ['id', 'open', 'createdAt', 'updatedAt'],
+              },
+            },
+          },
+        },
+      ],
     }).then(routes => {
       return res.status(200).send(routes);
     });

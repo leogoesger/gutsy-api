@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   Area.associate = models => {
     Area.belongsTo(models.Region, {
       foreignKey: 'regionId',
+      as: 'region',
     });
     Area.hasMany(models.Subarea, {
       foreignKey: 'areaId',
