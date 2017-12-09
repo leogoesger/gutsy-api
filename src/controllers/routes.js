@@ -1,7 +1,6 @@
 const Op = require('sequelize').Op;
 
 const Route = require('../models').Route;
-const User = require('../models').User;
 const Book = require('../models').Book;
 const Region = require('../models').Region;
 const Subregion = require('../models').Subregion;
@@ -17,9 +16,18 @@ module.exports = {
 
   show(req, res) {
     return Route.findById(req.params.routeId, {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
       include: [
-        {model: User, foreignKey: 'userId', as: 'users'},
-        {model: Book, foreignKey: 'bookId', as: 'books'},
+        {
+          model: Book,
+          foreignKey: 'bookId',
+          as: 'books',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'BookRoute'],
+          },
+        },
       ],
     })
       .then(route => res.status(200).send(route))
