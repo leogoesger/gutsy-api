@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelizeClient, DataTypes) => {
-  const Region = sequelizeClient.define('Region', {
+  const Subregion = sequelizeClient.define('Subregion', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -25,11 +25,15 @@ module.exports = (sequelizeClient, DataTypes) => {
       allowNull: true,
     },
   });
-  Region.associate = models => {
-    Region.hasMany(models.Subregion, {
+  Subregion.associate = models => {
+    Subregion.belongsTo(models.Region, {
       foreignKey: 'regionId',
-      as: 'subregions',
+      as: 'region',
+    });
+    Subregion.hasMany(models.Area, {
+      foreignKey: 'subregionId',
+      as: 'areas',
     });
   };
-  return Region;
+  return Subregion;
 };

@@ -1,23 +1,16 @@
 const Op = require('sequelize').Op;
+
 const Route = require('../models').Route;
-const Subarea = require('../models').Subarea;
 const User = require('../models').User;
 const Book = require('../models').Book;
+const Region = require('../models').Region;
+const Subregion = require('../models').Subregion;
+const Area = require('../models').Area;
+const Subarea = require('../models').Subarea;
 
 module.exports = {
   async create(req, res) {
-    const subarea = await Subarea.findById(req.body.subareaId);
-    const location = {
-      regionName: JSON.parse(subarea.location).regionName,
-      regionId: JSON.parse(subarea.location).regionId,
-      areaName: JSON.parse(subarea.location).areaName,
-      areaId: JSON.parse(subarea.location).areaId,
-      subareaName: subarea.name,
-      subareaId: subarea.id,
-    };
-    return Route.create(
-      Object.assign(req.body, {location: JSON.stringify(location)})
-    )
+    return Route.create(req.body)
       .then(route => res.status(201).send(route))
       .catch(err => res.status(400).send(err));
   },
@@ -25,7 +18,7 @@ module.exports = {
   show(req, res) {
     return Route.findById(req.params.routeId, {
       include: [
-        {model: User, as: 'users'},
+        {model: User, foreignKey: 'userId', as: 'users'},
         {model: Book, foreignKey: 'bookId', as: 'books'},
       ],
     })
@@ -78,6 +71,44 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      limit: 5,
+      attributes: {
+        exclude: ['open', 'createdAt', 'updatedAt', 'subareaId'],
+      },
+      include: [
+        {
+          model: Subarea,
+          foreignKey: 'subareaId',
+          as: 'subarea',
+          attributes: {
+            exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'areaId'],
+          },
+          include: {
+            model: Area,
+            foreignKey: 'areaId',
+            as: 'area',
+            attributes: {
+              exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'subregionId'],
+            },
+            include: {
+              model: Subregion,
+              foreignKey: 'subregionId',
+              as: 'subregion',
+              attributes: {
+                exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'regionId'],
+              },
+              include: {
+                model: Region,
+                foreignKey: 'regionId',
+                as: 'region',
+                attributes: {
+                  exclude: ['open', 'gps', 'createdAt', 'updatedAt'],
+                },
+              },
+            },
+          },
+        },
+      ],
     }).then(routes => {
       return res.status(200).send(routes);
     });

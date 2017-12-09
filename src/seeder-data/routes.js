@@ -8,11 +8,6 @@ module.exports = [
     subareaId: 1,
     updatedAt: '2017-11-19T17:29:40.526Z',
     createdAt: '2017-11-19T17:29:40.526Z',
-    location: JSON.stringify({
-      region: 'Bishop',
-      area: 'Sad boulder',
-      subarea: 'Sad Boulder',
-    }),
   },
   {
     name: 'Strength In Number',
@@ -23,11 +18,6 @@ module.exports = [
     subareaId: 1,
     updatedAt: '2017-11-19T17:29:40.526Z',
     createdAt: '2017-11-19T17:29:40.526Z',
-    location: JSON.stringify({
-      region: 'Bishop',
-      area: 'Sad boulder',
-      subarea: 'Sad Boulder',
-    }),
   },
   {
     name: 'The Nose',
@@ -35,13 +25,8 @@ module.exports = [
     description: 'Ice cave',
     grade: '5.14a Grade VI',
     category: 'Traditional',
-    subareaId: 3,
+    subareaId: 2,
     updatedAt: '2017-11-19T17:29:40.526Z',
     createdAt: '2017-11-19T17:29:40.526Z',
-    location: JSON.stringify({
-      region: 'Yosemite',
-      area: 'El Cap',
-      subarea: 'Heart Wall',
-    }),
   },
 ];

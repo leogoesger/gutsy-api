@@ -34,11 +34,11 @@ describe("'regions'service", () => {
   });
 
   it('should SHOW the region with its area', async () => {
-    const dummy = await factories.create('area');
+    const dummy = await factories.create('subregion');
 
     const res = await chai.request(app).get('/api/regions/1');
-    assert.equal(res.body.areas.length, 1);
-    assert.equal(res.body.areas[0].name, dummy.dataValues.name);
+    assert.equal(res.body.subregions.length, 1);
+    assert.equal(res.body.subregions[0].name, dummy.dataValues.name);
   });
 
   it('should UPDATE the region', async () => {

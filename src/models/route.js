@@ -27,15 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },
-    location: {
-      type: DataTypes.JSONB,
-      allownull: true,
-    },
   });
 
   Route.associate = models => {
     Route.belongsTo(models.Subarea, {
       foreignKey: 'subareaId',
+      as: 'subarea',
     });
     Route.belongsToMany(models.Book, {
       through: models.BookRoute,

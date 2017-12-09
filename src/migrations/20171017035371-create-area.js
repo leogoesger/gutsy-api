@@ -21,10 +21,6 @@ module.exports = {
       gps: {
         type: Sequelize.TEXT,
       },
-      location: {
-        type: Sequelize.JSONB,
-        allowNull: true,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -33,11 +29,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      regionId: {
+      subregionId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Regions',
+          model: 'Subregions',
           key: 'id',
         },
       },

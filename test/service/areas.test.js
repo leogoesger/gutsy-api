@@ -13,13 +13,13 @@ describe("'areas'service", () => {
   });
 
   it('should POST area', async () => {
-    const region = await factories.create('region');
+    const subregion = await factories.create('subregion');
     const dummy = {
       name: 'New area',
       open: true,
       description: 'This is a cool area!',
       gps: '122.123, 123.4123',
-      regionId: region.dataValues.id,
+      subregionId: subregion.dataValues.id,
     };
     const res = await chai
       .request(app)
@@ -38,7 +38,7 @@ describe("'areas'service", () => {
   it('should SHOW area', async () => {
     await factories.create('area');
     const res = await chai.request(app).get('/api/areas/1');
-    assert.equal(res.body.regionId, 1);
+    assert.equal(res.body.subregionId, 1);
   });
 
   it('should UPDATE area', async () => {
@@ -95,20 +95,20 @@ describe("'areas'service", () => {
   });
 
   it('should return searched areas', async () => {
-    const region = await factories.create('region');
+    const subregion = await factories.create('subregion');
     const dummy = {
       name: 'New area one',
       open: true,
       description: 'This is a cool area!',
       gps: '122.123, 123.4123',
-      regionId: region.dataValues.id,
+      subregionId: subregion.dataValues.id,
     };
     const dummy2 = {
       name: 'New area two',
       open: true,
       description: 'This is a cool area!',
       gps: '122.123, 123.4123',
-      regionId: region.dataValues.id,
+      subregionId: subregion.dataValues.id,
     };
     await chai
       .request(app)
@@ -126,13 +126,13 @@ describe("'areas'service", () => {
   });
 
   it('should return 400 for searching non-exist areas', async () => {
-    const region = await factories.create('region');
+    const subregion = await factories.create('subregion');
     const dummy = {
       name: 'New area one',
       open: true,
       description: 'This is a cool area!',
       gps: '122.123, 123.4123',
-      regionId: region.dataValues.id,
+      subregionId: subregion.dataValues.id,
     };
     await chai
       .request(app)
