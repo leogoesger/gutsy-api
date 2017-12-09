@@ -8,21 +8,21 @@ const getToken = require('../helpers/getToken');
 
 chai.use(chaiHttp);
 
-describe("'userRoutes'service", () => {
+describe("'userClimbs'service", () => {
   beforeEach(async () => {
     await db.sequelize.sync({force: true, logging: false});
   });
 
-  it('should POST userRoute', async () => {
+  it('should POST userClimb', async () => {
     const user = await factories.create('user');
-    const route = await factories.create('route');
+    const climb = await factories.create('climb');
     const dummy = {
       userId: user.dataValues.id,
-      routeId: route.dataValues.id,
+      climbId: climb.dataValues.id,
     };
     const res = await chai
       .request(app)
-      .post('/api/userRoutes')
+      .post('/api/userClimbs')
       .send(dummy);
     assert.equal(res.body.userId, dummy.userId);
   });
@@ -30,29 +30,29 @@ describe("'userRoutes'service", () => {
   it('should return 400', async () => {
     await chai
       .request(app)
-      .post('/api/userRoutes')
+      .post('/api/userClimbs')
       .send({userId: 1})
       .catch(err => {
         assert.equal(err.response.status, 400);
       });
   });
 
-  it('should LIST Routes under user', async () => {
-    await factories.create('userRoute');
-    await factories.create('route');
-    await factories.create('route');
+  it('should LIST Climbs under user', async () => {
+    await factories.create('userClimb');
+    await factories.create('climb');
+    await factories.create('climb');
     await chai
       .request(app)
-      .post('/api/userRoutes')
-      .send({userId: 1, routeId: 2});
+      .post('/api/userClimbs')
+      .send({userId: 1, climbId: 2});
     await chai
       .request(app)
-      .post('/api/userRoutes')
-      .send({userId: 1, routeId: 3});
+      .post('/api/userClimbs')
+      .send({userId: 1, climbId: 3});
     const res = await chai
       .request(app)
       .get('/users/me')
       .set('gutsyJwt', getToken());
-    assert.equal(res.body.routes.length, 3);
+    assert.equal(res.body.climbs.length, 3);
   });
 });

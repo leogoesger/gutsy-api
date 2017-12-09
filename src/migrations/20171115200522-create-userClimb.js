@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('UserRoutes', {
+    return queryInterface.createTable('UserClimbs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -24,17 +24,17 @@ module.exports = {
           key: 'id',
         },
       },
-      routeId: {
+      climbId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
-          model: 'Routes',
+          model: 'Climbs',
           key: 'id',
         },
       },
     });
   },
   down: queryInterface => {
-    return queryInterface.dropTable('UserRoutes');
+    return queryInterface.dropTable('UserClimbs');
   },
 };

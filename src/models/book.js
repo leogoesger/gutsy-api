@@ -21,10 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Book.associate = models => {
-    Book.belongsToMany(models.Route, {
-      through: models.BookRoute,
+    Book.belongsToMany(models.Climb, {
+      through: models.BookClimb,
       foreignKey: 'bookId',
-      as: 'routes',
+      as: 'climbs',
     });
     Book.belongsToMany(models.Author, {
       through: models.AuthorBook,

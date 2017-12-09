@@ -1,27 +1,27 @@
 const regions = require('./regions');
 const subregions = require('./subregions');
-const routes = require('./routes');
+const climbs = require('./climbs');
 const users = require('./users');
 const areas = require('./areas');
 const subareas = require('./subareas');
 const authors = require('./authors');
 const books = require('./books');
-const userRoutes = require('./userRoutes');
+const userClimbs = require('./userClimbs');
 const userBooks = require('./userBooks');
 const authorBooks = require('./authorBooks');
-const bookRoutes = require('./bookRoutes');
+const bookClimbs = require('./bookClimbs');
 
 module.exports = {
   regions,
   subregions,
-  routes,
+  climbs,
   users,
   areas,
   subareas,
   authors,
   books,
-  userRoutes,
+  userClimbs,
   userBooks,
   authorBooks,
-  bookRoutes,
+  bookClimbs,
 };

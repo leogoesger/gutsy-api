@@ -1,7 +1,7 @@
 const Op = require('sequelize').Op;
 const Area = require('../models').Area;
 const Subarea = require('../models').Subarea;
-const Route = require('../models').Route;
+const Climb = require('../models').Climb;
 const Subregion = require('../models').Subregion;
 const Region = require('../models').Region;
 
@@ -14,7 +14,7 @@ module.exports = {
 
   list(req, res) {
     return Subarea.findAll({
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Climb, as: 'climbs'}],
     })
       .then(subareas => res.status(200).send(subareas))
       .catch(err => res.status(400).send(err));
@@ -22,7 +22,7 @@ module.exports = {
 
   show(req, res) {
     return Subarea.findById(req.params.subareaId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Climb, as: 'climbs'}],
     })
       .then(subarea => res.status(200).send(subarea))
       .catch(err => res.status(400).send(err));
@@ -30,7 +30,7 @@ module.exports = {
 
   update(req, res) {
     return Subarea.findById(req.params.subareaId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Climb, as: 'climbs'}],
     })
       .then(subarea => {
         if (!subarea) {

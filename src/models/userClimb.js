@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const UserRoute = sequelize.define('UserRoute', {
+  const UserClimb = sequelize.define('UserClimb', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     userId: DataTypes.INTEGER,
-    routeId: DataTypes.INTEGER,
+    climbId: DataTypes.INTEGER,
   });
 
-  return UserRoute;
+  return UserClimb;
 };

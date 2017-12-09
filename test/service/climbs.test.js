@@ -7,12 +7,12 @@ const db = require('../../src/models');
 
 chai.use(chaiHttp);
 
-describe("'routes'service", () => {
+describe("'climbs'service", () => {
   beforeEach(async () => {
     await db.sequelize.sync({force: true, logging: false});
   });
 
-  it('should POST route', async () => {
+  it('should POST climb', async () => {
     const subarea = await factories.create('subarea');
     const dummy = {
       name: 'abc',
@@ -25,66 +25,66 @@ describe("'routes'service", () => {
 
     const res = await chai
       .request(app)
-      .post('/api/routes')
+      .post('/api/climbs')
       .send(dummy);
     assert.equal(res.body.name, dummy.name);
     assert.equal(res.body.subareaId, dummy.subareaId);
   });
 
-  it('should SHOW route', async () => {
-    const route = await factories.create('route');
-    const res = await chai.request(app).get('/api/routes/1');
-    assert.equal(res.body.name, route.dataValues.name);
+  it('should SHOW climb', async () => {
+    const climb = await factories.create('climb');
+    const res = await chai.request(app).get('/api/climbs/1');
+    assert.equal(res.body.name, climb.dataValues.name);
   });
 
-  it('should UPDATE route', async () => {
-    await factories.create('route');
+  it('should UPDATE climb', async () => {
+    await factories.create('climb');
     const dummy = {
       name: 'updated',
     };
     const res = await chai
       .request(app)
-      .put('/api/routes/1')
+      .put('/api/climbs/1')
       .send(dummy);
     assert.equal(res.body.name, dummy.name);
   });
 
-  it('should DELETE route', async () => {
-    await factories.create('route');
-    const route = await factories.create('route');
-    await chai.request(app).delete('/api/routes/1');
-    const res = await chai.request(app).get('/api/routes/2');
-    assert.equal(res.body.name, route.dataValues.name);
+  it('should DELETE climb', async () => {
+    await factories.create('climb');
+    const climb = await factories.create('climb');
+    await chai.request(app).delete('/api/climbs/1');
+    const res = await chai.request(app).get('/api/climbs/2');
+    assert.equal(res.body.name, climb.dataValues.name);
   });
 
-  it('should NOT UPDATE route unknown', async () => {
-    await factories.create('route');
+  it('should NOT UPDATE climb unknown', async () => {
+    await factories.create('climb');
     const dummy = {name: 'updated_name'};
     await chai
       .request(app)
-      .put('/api/routes/2')
+      .put('/api/climbs/2')
       .send(dummy)
       .catch(err => {
         assert.equal(err.response.status, 404);
       });
   });
 
-  it('should NOT DELETE route unknown', async () => {
-    await factories.create('route');
+  it('should NOT DELETE climb unknown', async () => {
+    await factories.create('climb');
     const dummy = {name: 'updated_name'};
     await chai
       .request(app)
-      .delete('/api/routes/2')
+      .delete('/api/climbs/2')
       .send(dummy)
       .catch(err => {
         assert.equal(err.response.status, 404);
       });
   });
 
-  it('should return searched routes', async () => {
+  it('should return searched climbs', async () => {
     const subarea = await factories.create('subarea');
     const dummy = {
-      name: 'New route one',
+      name: 'New climb one',
       description: 'describe',
       grade: 'V5',
       category: 'trad',
@@ -92,7 +92,7 @@ describe("'routes'service", () => {
       subareaId: subarea.dataValues.id,
     };
     const dummy2 = {
-      name: 'New route two',
+      name: 'New climb two',
       description: 'describe',
       grade: 'V5',
       category: 'trad',
@@ -101,24 +101,24 @@ describe("'routes'service", () => {
     };
     await chai
       .request(app)
-      .post('/api/routes')
+      .post('/api/climbs')
       .send(dummy);
     await chai
       .request(app)
-      .post('/api/routes')
+      .post('/api/climbs')
       .send(dummy2);
 
     const res = await chai
       .request(app)
-      .post('/api/search-routes')
-      .send({name: 'route'});
+      .post('/api/search-climbs')
+      .send({name: 'climb'});
     assert.equal(res.body.length, 2);
   });
 
-  it('should return 400 for searching non-exist routes', async () => {
+  it('should return 400 for searching non-exist climbs', async () => {
     const subarea = await factories.create('subarea');
     const dummy = {
-      name: 'New route one',
+      name: 'New climb one',
       description: 'describe',
       grade: 'V5',
       category: 'trad',
@@ -127,11 +127,11 @@ describe("'routes'service", () => {
     };
     await chai
       .request(app)
-      .post('/api/routes')
+      .post('/api/climbs')
       .send(dummy);
     await chai
       .request(app)
-      .post('/api/search-routes')
+      .post('/api/search-climbs')
       .send({name: 'xxx'})
       .catch(err => {
         assert.equal(err.response.status, 404);

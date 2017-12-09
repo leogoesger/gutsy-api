@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models').User;
-const Route = require('../models').Route;
+const Climb = require('../models').Climb;
 const Book = require('../models').Book;
 
 module.exports = {
@@ -55,7 +55,7 @@ module.exports = {
   getMe(req, res) {
     User.findById(req.user.id, {
       include: [
-        {model: Route, foreignKey: 'userId', as: 'routes'},
+        {model: Climb, foreignKey: 'userId', as: 'climbs'},
         {model: Book, foreignKey: 'userId', as: 'books'},
       ],
     })

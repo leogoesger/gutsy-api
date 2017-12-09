@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const BookRoute = sequelize.define('BookRoute', {
+  const BookClimb = sequelize.define('BookClimb', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     bookId: DataTypes.INTEGER,
-    routeId: DataTypes.INTEGER,
+    climbId: DataTypes.INTEGER,
   });
 
-  return BookRoute;
+  return BookClimb;
 };

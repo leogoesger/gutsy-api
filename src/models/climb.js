@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Route = sequelize.define('Route', {
+  const Climb = sequelize.define('Climb', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -29,21 +29,21 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Route.associate = models => {
-    Route.belongsTo(models.Subarea, {
+  Climb.associate = models => {
+    Climb.belongsTo(models.Subarea, {
       foreignKey: 'subareaId',
       as: 'subarea',
     });
-    Route.belongsToMany(models.Book, {
-      through: models.BookRoute,
-      foreignKey: 'routeId',
+    Climb.belongsToMany(models.Book, {
+      through: models.BookClimb,
+      foreignKey: 'climbId',
       as: 'books',
     });
-    Route.belongsToMany(models.User, {
-      through: models.UserRoute,
-      foreignKey: 'routeId',
+    Climb.belongsToMany(models.User, {
+      through: models.UserClimb,
+      foreignKey: 'climbId',
       as: 'users',
     });
   };
-  return Route;
+  return Climb;
 };

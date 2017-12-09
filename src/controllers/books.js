@@ -1,6 +1,6 @@
 const Op = require('sequelize').Op;
 const Book = require('../models').Book;
-const Route = require('../models').Route;
+const Climb = require('../models').Climb;
 const Author = require('../models').Author;
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
   list(req, res) {
     return Book.findAll({
       include: [
-        {model: Route, foreignKey: 'routeId', as: 'routes'},
+        {model: Climb, foreignKey: 'climbId', as: 'climbs'},
         {model: Author, foreignKey: 'authorId', as: 'authors'},
       ],
     })
@@ -24,7 +24,7 @@ module.exports = {
   show(req, res) {
     return Book.findById(req.params.bookId, {
       include: [
-        {model: Route, as: 'routes'},
+        {model: Climb, as: 'climbs'},
         {model: Author, foreignKey: 'authorId', as: 'authors'},
       ],
     })
@@ -34,7 +34,7 @@ module.exports = {
 
   update(req, res) {
     return Book.findById(req.params.bookId, {
-      include: [{model: Route, as: 'routes'}],
+      include: [{model: Climb, as: 'climbs'}],
     })
       .then(book => {
         if (!book) {
