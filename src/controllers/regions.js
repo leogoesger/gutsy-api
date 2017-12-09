@@ -62,8 +62,9 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      limit: 2,
       attributes: {
-        exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
+        exclude: ['open', 'gps', 'createdAt', 'updatedAt'],
       },
     }).then(regions => {
       return res.status(200).send(regions);

@@ -63,8 +63,9 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      limit: 2,
       attributes: {
-        exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt', 'regionId'],
+        exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'regionId'],
       },
       include: [
         {
@@ -72,7 +73,7 @@ module.exports = {
           foreignKey: 'regionId',
           as: 'region',
           attributes: {
-            exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
+            exclude: ['open', 'gps', 'createdAt', 'updatedAt'],
           },
         },
       ],

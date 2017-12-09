@@ -18,7 +18,7 @@ module.exports = [
     createdAt: '2017-11-19T17:25:28.445Z',
   },
   {
-    name: 'Buutermilk boulder',
+    name: 'Buttermilk boulder',
     open: true,
     description: 'The happiest place on earth!',
     gps: '133.232, 121.021',

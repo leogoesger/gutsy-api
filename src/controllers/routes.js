@@ -71,8 +71,9 @@ module.exports = {
           [Op.iLike]: `%${req.body.name}%`,
         },
       },
+      limit: 5,
       attributes: {
-        exclude: ['id', 'open', 'createdAt', 'updatedAt', 'subareaId'],
+        exclude: ['open', 'createdAt', 'updatedAt', 'subareaId'],
       },
       include: [
         {
@@ -80,42 +81,28 @@ module.exports = {
           foreignKey: 'subareaId',
           as: 'subarea',
           attributes: {
-            exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt', 'areaId'],
+            exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'areaId'],
           },
           include: {
             model: Area,
             foreignKey: 'areaId',
             as: 'area',
             attributes: {
-              exclude: [
-                'id',
-                'open',
-                'gps',
-                'createdAt',
-                'updatedAt',
-                'subregionId',
-              ],
+              exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'subregionId'],
             },
             include: {
               model: Subregion,
               foreignKey: 'subregionId',
               as: 'subregion',
               attributes: {
-                exclude: [
-                  'id',
-                  'open',
-                  'gps',
-                  'createdAt',
-                  'updatedAt',
-                  'regionId',
-                ],
+                exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'regionId'],
               },
               include: {
                 model: Region,
                 foreignKey: 'regionId',
                 as: 'region',
                 attributes: {
-                  exclude: ['id', 'open', 'gps', 'createdAt', 'updatedAt'],
+                  exclude: ['open', 'gps', 'createdAt', 'updatedAt'],
                 },
               },
             },
