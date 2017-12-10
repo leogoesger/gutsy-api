@@ -8,11 +8,11 @@ const regions = require('./region')(factory);
 const subregions = require('./subregion')(factory);
 const authors = require('./author')(factory);
 const books = require('./book')(factory);
-const routes = require('./route')(factory);
+const climbs = require('./climb')(factory);
 const users = require('./user')(factory);
-const userRoutes = require('./userRoute')(factory);
+const userClimbs = require('./userClimb')(factory);
 const userBooks = require('./userBook')(factory);
-const bookRoutes = require('./bookRoute')(factory);
+const bookClimbs = require('./bookClimb')(factory);
 const authorBooks = require('./authorBook')(factory);
 
 export default factory;

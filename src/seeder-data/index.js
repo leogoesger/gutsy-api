@@ -8,9 +8,9 @@ module.exports = {
   subareas: require('./subareas'),
   books: require('./books'),
   users: require('./users'),
-  routes: require('./routes'),
-  userRoutes: require('./userRoutes'),
+  climbs: require('./climbs'),
+  userClimbs: require('./userClimbs'),
   userBooks: require('./userBooks'),
   authorBooks: require('./authorBooks'),
-  bookRoutes: require('./bookRoutes'),
+  bookClimbs: require('./bookClimbs'),
 };

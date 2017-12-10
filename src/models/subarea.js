@@ -30,9 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'areaId',
       as: 'area',
     });
-    Subarea.hasMany(models.Route, {
+    Subarea.hasMany(models.Climb, {
       foreignKey: 'subareaId',
-      as: 'routes',
+      as: 'climbs',
     });
   };
   return Subarea;

@@ -1,6 +1,6 @@
 module.exports = [
   {
-    name: 'The Cave Route',
+    name: 'The Cave Climb',
     open: true,
     description: 'Ice cave',
     grade: 'V10',

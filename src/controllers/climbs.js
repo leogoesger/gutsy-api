@@ -1,7 +1,6 @@
 const Op = require('sequelize').Op;
 
-const Route = require('../models').Route;
-const User = require('../models').User;
+const Climb = require('../models').Climb;
 const Book = require('../models').Book;
 const Region = require('../models').Region;
 const Subregion = require('../models').Subregion;
@@ -10,51 +9,60 @@ const Subarea = require('../models').Subarea;
 
 module.exports = {
   async create(req, res) {
-    return Route.create(req.body)
-      .then(route => res.status(201).send(route))
+    return Climb.create(req.body)
+      .then(climb => res.status(201).send(climb))
       .catch(err => res.status(400).send(err));
   },
 
   show(req, res) {
-    return Route.findById(req.params.routeId, {
+    return Climb.findById(req.params.climbId, {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
       include: [
-        {model: User, foreignKey: 'userId', as: 'users'},
-        {model: Book, foreignKey: 'bookId', as: 'books'},
+        {
+          model: Book,
+          foreignKey: 'bookId',
+          as: 'books',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'BookClimb'],
+          },
+        },
       ],
     })
-      .then(route => res.status(200).send(route))
+      .then(climb => res.status(200).send(climb))
       .catch(err => res.status(400).send(err));
   },
 
   update(req, res) {
-    return Route.find({
+    return Climb.find({
       where: {
-        id: req.params.routeId,
+        id: req.params.climbId,
       },
     })
-      .then(route => {
-        if (!route) {
-          return res.status(404).send({message: 'Climbing route not found'});
+      .then(climb => {
+        if (!climb) {
+          return res.status(404).send({message: 'Climbing climb not found'});
         }
-        return route
+        return climb
           .update(req.body, {fields: Object.keys(req.body)})
-          .then(() => res.status(200).send(route))
+          .then(() => res.status(200).send(climb))
           .catch(err => res.status(400).send(err));
       })
       .catch(err => res.status(400).send(err));
   },
 
   delete(req, res) {
-    return Route.find({
+    return Climb.find({
       where: {
-        id: req.params.routeId,
+        id: req.params.climbId,
       },
     })
-      .then(route => {
-        if (!route) {
-          return res.status(404).send({message: 'Climbing route not found'});
+      .then(climb => {
+        if (!climb) {
+          return res.status(404).send({message: 'Climbing climb not found'});
         }
-        return route
+        return climb
           .destroy()
           .then(() => res.status(204).send({message: 'Deleted'}))
           .catch(() =>
@@ -65,7 +73,7 @@ module.exports = {
   },
 
   search(req, res) {
-    return Route.findAll({
+    return Climb.findAll({
       where: {
         name: {
           [Op.iLike]: `%${req.body.name}%`,
@@ -109,8 +117,8 @@ module.exports = {
           },
         },
       ],
-    }).then(routes => {
-      return res.status(200).send(routes);
+    }).then(climbs => {
+      return res.status(200).send(climbs);
     });
   },
 };

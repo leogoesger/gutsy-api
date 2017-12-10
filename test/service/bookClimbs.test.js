@@ -7,43 +7,43 @@ const db = require('../../src/models');
 
 chai.use(chaiHttp);
 
-describe("'bookRoutes'service", () => {
+describe("'bookClimbs'service", () => {
   beforeEach(async () => {
     await db.sequelize.sync({force: true, logging: false});
   });
 
-  it('should POST bookRoutes', async () => {
-    const route = await factories.create('route');
+  it('should POST bookClimbs', async () => {
+    const climb = await factories.create('climb');
     const book = await factories.create('book');
     const dummy = {
-      routeId: route.dataValues.id,
+      climbId: climb.dataValues.id,
       bookId: book.dataValues.id,
     };
     const res = await chai
       .request(app)
-      .post('/api/bookRoutes')
+      .post('/api/bookClimbs')
       .send(dummy);
-    assert.equal(res.body.routeId, dummy.routeId);
+    assert.equal(res.body.climbId, dummy.climbId);
     assert.equal(res.body.bookId, dummy.bookId);
   });
 
   it('should return 400', async () => {
     await chai
       .request(app)
-      .post('/api/bookRoutes')
+      .post('/api/bookClimbs')
       .send({bookId: 1})
       .catch(err => {
         assert.equal(err.response.status, 400);
       });
   });
 
-  it('should LIST routes under book', async () => {
-    await factories.create('bookRoute');
-    const res = await chai.request(app).get('/api/routes/1');
+  it('should LIST climbs under book', async () => {
+    await factories.create('bookClimb');
+    const res = await chai.request(app).get('/api/climbs/1');
     const res_2 = await chai.request(app).get('/api/books/1');
     assert.equal(res.body.books.length, 1);
     assert.notEqual(res.body.books[0].title, null);
-    assert.equal(res_2.body.routes.length, 1);
-    assert.notEqual(res_2.body.routes[0].name, null);
+    assert.equal(res_2.body.climbs.length, 1);
+    assert.notEqual(res_2.body.climbs[0].name, null);
   });
 });

@@ -2,16 +2,16 @@ const authenticate = require('../middlewares/authenticate').authenticate;
 
 const regionsController = require('../controllers').regions;
 const subregionsController = require('../controllers').subregions;
-const routesController = require('../controllers').routes;
+const climbsController = require('../controllers').climbs;
 const usersController = require('../controllers').users;
 const areasController = require('../controllers').areas;
 const subareasController = require('../controllers').subareas;
 const authorsController = require('../controllers').authors;
 const booksController = require('../controllers').books;
-const userRoutesController = require('../controllers').userRoutes;
+const userClimbsController = require('../controllers').userClimbs;
 const userBooksController = require('../controllers').userBooks;
 const authorBooksController = require('../controllers').authorBooks;
-const bookRoutesController = require('../controllers').bookRoutes;
+const bookClimbsController = require('../controllers').bookClimbs;
 
 module.exports = app => {
   app.post('/api/regions', regionsController.create);
@@ -42,11 +42,11 @@ module.exports = app => {
   app.delete('/api/subareas/:subareaId', subareasController.delete);
   app.post('/api/search-subareas', subareasController.search);
 
-  app.post('/api/routes', routesController.create);
-  app.get('/api/routes/:routeId', routesController.show);
-  app.put('/api/routes/:routeId', routesController.update);
-  app.delete('/api/routes/:routeId', routesController.delete);
-  app.post('/api/search-routes', routesController.search);
+  app.post('/api/climbs', climbsController.create);
+  app.get('/api/climbs/:climbId', climbsController.show);
+  app.put('/api/climbs/:climbId', climbsController.update);
+  app.delete('/api/climbs/:climbId', climbsController.delete);
+  app.post('/api/search-climbs', climbsController.search);
 
   app.post('/api/authors', authorsController.create);
   app.get('/api/authors', authorsController.list);
@@ -61,13 +61,13 @@ module.exports = app => {
   app.delete('/api/books/:bookId', booksController.delete);
   app.post('/api/search-books', booksController.search);
 
-  app.post('/api/userRoutes', userRoutesController.create);
+  app.post('/api/userClimbs', userClimbsController.create);
 
   app.post('/api/userBooks', userBooksController.create);
 
   app.post('/api/authorBooks', authorBooksController.create);
 
-  app.post('/api/bookRoutes', bookRoutesController.create);
+  app.post('/api/bookClimbs', bookClimbsController.create);
 
   app.post('/signup', usersController.signUp);
   app.post('/login', usersController.login);

@@ -1,9 +1,9 @@
-const Route = require('../../src/models').Route;
+const Climb = require('../../src/models').Climb;
 
 module.exports = factory => {
-  const route = factory.define('route', Route, async () => {
+  const climb = factory.define('climb', Climb, async () => {
     return {
-      name: 'The Cave Route',
+      name: 'The Cave Climb',
       open: true,
       description: 'Ice cave',
       grade: 'V10',
@@ -11,5 +11,5 @@ module.exports = factory => {
       subareaId: factory.assoc('subarea', 'id'),
     };
   });
-  return route;
+  return climb;
 };
