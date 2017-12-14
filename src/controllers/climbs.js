@@ -28,6 +28,38 @@ module.exports = {
             exclude: ['createdAt', 'updatedAt', 'BookClimb'],
           },
         },
+        {
+          model: Subarea,
+          foreignKey: 'subareaId',
+          as: 'subarea',
+          attributes: {
+            exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'areaId'],
+          },
+          include: {
+            model: Area,
+            foreignKey: 'areaId',
+            as: 'area',
+            attributes: {
+              exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'subregionId'],
+            },
+            include: {
+              model: Subregion,
+              foreignKey: 'subregionId',
+              as: 'subregion',
+              attributes: {
+                exclude: ['open', 'gps', 'createdAt', 'updatedAt', 'regionId'],
+              },
+              include: {
+                model: Region,
+                foreignKey: 'regionId',
+                as: 'region',
+                attributes: {
+                  exclude: ['open', 'gps', 'createdAt', 'updatedAt'],
+                },
+              },
+            },
+          },
+        },
       ],
     })
       .then(climb => res.status(200).send(climb))
