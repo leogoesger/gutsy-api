@@ -46,10 +46,12 @@ module.exports = {
           );
           res.status(200).send({gutsyJwt, user});
         } else {
-          res.status(404).send({message: 'Wrong Password'});
+          res.status(404).send({message: 'Wrong Password!'});
         }
       })
-      .catch(err => res.status(400).send(err));
+      .catch(() =>
+        res.status(400).send({message: 'Could not find your email!'})
+      );
   },
 
   getMe(req, res) {
