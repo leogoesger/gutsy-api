@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },
+    icons: {
+      type: DataTypes.JSONB,
+    },
   });
 
   Climb.associate = models => {

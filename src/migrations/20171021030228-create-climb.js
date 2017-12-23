@@ -28,6 +28,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: true,
       },
+      icons: {
+        type: Sequelize.JSONB,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
