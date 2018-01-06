@@ -12,9 +12,18 @@ module.exports = {
 
   list(req, res) {
     return Book.findAll({
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
       include: [
-        {model: Climb, foreignKey: 'climbId', as: 'climbs'},
-        {model: Author, foreignKey: 'authorId', as: 'authors'},
+        {
+          model: Author,
+          foreignKey: 'authorId',
+          as: 'authors',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'email'],
+          },
+        },
       ],
     })
       .then(books => res.status(200).send(books))
@@ -23,9 +32,18 @@ module.exports = {
 
   show(req, res) {
     return Book.findById(req.params.bookId, {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
       include: [
-        {model: Climb, as: 'climbs'},
-        {model: Author, foreignKey: 'authorId', as: 'authors'},
+        {
+          model: Author,
+          foreignKey: 'authorId',
+          as: 'authors',
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'email'],
+          },
+        },
       ],
     })
       .then(book => res.status(200).send(book))
