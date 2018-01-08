@@ -63,7 +63,7 @@ module.exports = app => {
 
   app.post('/api/userClimbs', userClimbsController.create);
 
-  app.post('/api/userBooks', userBooksController.create);
+  app.post('/api/userBooks', userBooksController.findOrCreate);
 
   app.post('/api/authorBooks', authorBooksController.create);
 

@@ -5,6 +5,7 @@ module.exports = factory => {
     return {
       userId: factory.assoc('user', 'id'),
       bookId: factory.assoc('book', 'id'),
+      userBookStatusId: factory.assoc('userBookStatus', 'id'),
     };
   });
   return userBook;
