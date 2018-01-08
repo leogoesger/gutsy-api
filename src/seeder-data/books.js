@@ -1,6 +1,6 @@
 module.exports = [
   {
-    title: 'Bishop area select',
+    title: 'Bishop Bouldering Select',
     description: 'A cool book about Bishop!',
     price: '39.99',
     updatedAt: '2017-11-19T17:28:33.039Z',

@@ -1,6 +1,12 @@
 module.exports = [
   {
-    authorId: 1,
+    authorId: 4,
+    bookId: 1,
+    updatedAt: '2017-11-19T17:32:21.404Z',
+    createdAt: '2017-11-19T17:32:21.404Z',
+  },
+  {
+    authorId: 5,
     bookId: 1,
     updatedAt: '2017-11-19T17:32:21.404Z',
     createdAt: '2017-11-19T17:32:21.404Z',

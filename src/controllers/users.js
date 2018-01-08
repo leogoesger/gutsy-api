@@ -22,7 +22,20 @@ module.exports = {
           {firstName: user.firstName, email: req.body.email},
           process.env.CRYPTO_KEY
         );
-        res.status(200).send({gutsyJwt, user});
+        User.find({
+          where: {
+            email: req.body.email,
+          },
+          include: [
+            {model: Climb, foreignKey: 'userId', as: 'climbs'},
+            {model: Book, foreignKey: 'userId', as: 'books'},
+          ],
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'password', 'role'],
+          },
+        }).then(fetchUser => {
+          res.status(200).send({gutsyJwt, fetchUser});
+        });
       })
       .catch(err => res.status(400).send(err));
   },
@@ -32,10 +45,16 @@ module.exports = {
       res.status(400).send('email not found');
       return;
     }
-
     User.find({
       where: {
         email: req.body.email,
+      },
+      include: [
+        {model: Climb, foreignKey: 'userId', as: 'climbs'},
+        {model: Book, foreignKey: 'userId', as: 'books'},
+      ],
+      attributes: {
+        exclude: ['createdAt', 'updatedAt', 'role'],
       },
     })
       .then(user => {
@@ -60,6 +79,9 @@ module.exports = {
         {model: Climb, foreignKey: 'userId', as: 'climbs'},
         {model: Book, foreignKey: 'userId', as: 'books'},
       ],
+      attributes: {
+        exclude: ['createdAt', 'updatedAt', 'password', 'role'],
+      },
     })
       .then(user => res.status(200).send(user))
       .catch(err => res.status(404).send(err));

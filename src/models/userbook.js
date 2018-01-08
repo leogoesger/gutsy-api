@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     bookId: DataTypes.INTEGER,
   });
-
+  UserBook.associate = models => {
+    UserBook.belongsTo(models.UserBookStatus, {
+      foreignKey: 'userBookStatusId',
+      as: 'status',
+    });
+  };
   return UserBook;
 };

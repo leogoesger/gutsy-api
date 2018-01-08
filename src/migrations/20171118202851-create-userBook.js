@@ -32,6 +32,13 @@ module.exports = {
           key: 'id',
         },
       },
+      userBookStatusId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'UserBookStatuses',
+          key: 'id',
+        },
+      },
     });
   },
   down: queryInterface => {

@@ -40,10 +40,7 @@ describe("'bookClimbs'service", () => {
   it('should LIST climbs under book', async () => {
     await factories.create('bookClimb');
     const res = await chai.request(app).get('/api/climbs/1');
-    const res_2 = await chai.request(app).get('/api/books/1');
     assert.equal(res.body.books.length, 1);
     assert.notEqual(res.body.books[0].title, null);
-    assert.equal(res_2.body.climbs.length, 1);
-    assert.notEqual(res_2.body.climbs[0].name, null);
   });
 });

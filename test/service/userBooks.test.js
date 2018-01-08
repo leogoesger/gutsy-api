@@ -8,7 +8,7 @@ const getToken = require('../helpers/getToken');
 
 chai.use(chaiHttp);
 
-describe("'userClimbs'service", () => {
+describe("'userBooks'service", () => {
   beforeEach(async () => {
     await db.sequelize.sync({force: true, logging: false});
   });
@@ -16,9 +16,11 @@ describe("'userClimbs'service", () => {
   it('should POST userBook', async () => {
     const user = await factories.create('user');
     const book = await factories.create('book');
+    const userBookStatus = await factories.create('userBookStatus');
     const dummy = {
       userId: user.dataValues.id,
       bookId: book.dataValues.id,
+      userBookStatusId: userBookStatus.dataValues.id,
     };
     const res = await chai
       .request(app)

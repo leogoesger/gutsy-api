@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     climbId: DataTypes.INTEGER,
   });
-
+  UserClimb.associate = models => {
+    UserClimb.belongsTo(models.UserClimbStatus, {
+      foreignKey: 'userClimbStatusId',
+      as: 'status',
+    });
+  };
   return UserClimb;
 };
