@@ -16,9 +16,11 @@ describe("'userClimbs'service", () => {
   it('should POST userClimb', async () => {
     const user = await factories.create('user');
     const climb = await factories.create('climb');
+    const userClimbStatus = await factories.create('userClimbStatus');
     const dummy = {
       userId: user.dataValues.id,
       climbId: climb.dataValues.id,
+      userClimbStatusId: userClimbStatus.dataValues.id,
     };
     const res = await chai
       .request(app)
