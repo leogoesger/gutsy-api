@@ -61,7 +61,7 @@ module.exports = app => {
   app.delete('/api/books/:bookId', booksController.delete);
   app.post('/api/search-books', booksController.search);
 
-  app.post('/api/userClimbs', userClimbsController.create);
+  app.post('/api/userClimbs', userClimbsController.findOrCreate);
 
   app.post('/api/userBooks', userBooksController.findOrCreate);
 

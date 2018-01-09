@@ -5,6 +5,7 @@ module.exports = factory => {
     return {
       userId: factory.assoc('user', 'id'),
       climbId: factory.assoc('climb', 'id'),
+      userClimbStatusId: factory.assoc('userClimbStatus', 'id'),
     };
   });
   return userClimb;
