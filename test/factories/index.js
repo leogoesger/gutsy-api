@@ -11,6 +11,7 @@ const books = require('./book')(factory);
 const climbs = require('./climb')(factory);
 const users = require('./user')(factory);
 const userClimbs = require('./userClimb')(factory);
+const userClimbStatuses = require('./userClimbStatus')(factory);
 const userBooks = require('./userBook')(factory);
 const userBookStatuses = require('./userBookStatus')(factory);
 const bookClimbs = require('./bookClimb')(factory);
