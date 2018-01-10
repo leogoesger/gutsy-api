@@ -20,6 +20,7 @@ module.exports = app => {
   app.put('/api/regions/:regionId', regionsController.update);
   app.delete('/api/regions/:regionId', regionsController.delete);
   app.post('/api/search-regions', regionsController.search);
+  app.post('/api/search-region-climbs', regionsController.fetchClimb);
 
   app.post('/api/subregions', subregionsController.create);
   app.get('/api/subregions', subregionsController.list);

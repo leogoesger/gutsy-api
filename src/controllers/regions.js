@@ -1,6 +1,16 @@
 const Op = require('sequelize').Op;
+
 const Region = require('../models').Region;
 const Subregion = require('../models').Subregion;
+const Area = require('../models').Area;
+const Subarea = require('../models').Subarea;
+const Climb = require('../models').Climb;
+
+import {
+  climbGradeConverter,
+  climbGradeRange,
+  regionPickClimbs,
+} from '../utils/helpers';
 
 module.exports = {
   create(req, res) {
@@ -69,5 +79,87 @@ module.exports = {
     }).then(regions => {
       return res.status(200).send(regions);
     });
+  },
+
+  fetchClimb(req, res) {
+    if (
+      !req.body.min ||
+      !req.body.max ||
+      !req.body.regionId ||
+      climbGradeConverter(req.body.min) > climbGradeConverter(req.body.max)
+    ) {
+      res.status(400).send({message: 'Wrong Information sent!'});
+    }
+    return Region.findById(req.body.regionId, {
+      attributes: {
+        exclude: [
+          'name',
+          'open',
+          'gps',
+          'createdAt',
+          'updatedAt',
+          'description',
+        ],
+      },
+      include: [
+        {
+          model: Subregion,
+          as: 'subregions',
+          attributes: {
+            exclude: [
+              'name',
+              'open',
+              'gps',
+              'description',
+              'createdAt',
+              'updatedAt',
+            ],
+          },
+          include: {
+            model: Area,
+            as: 'areas',
+            attributes: {
+              exclude: [
+                'name',
+                'open',
+                'gps',
+                'description',
+                'createdAt',
+                'updatedAt',
+              ],
+            },
+            include: {
+              model: Subarea,
+              as: 'subareas',
+              attributes: {
+                exclude: [
+                  'name',
+                  'open',
+                  'gps',
+                  'description',
+                  'createdAt',
+                  'updatedAt',
+                ],
+              },
+              include: {
+                model: Climb,
+                as: 'climbs',
+                attributes: {
+                  exclude: ['open', 'createdAt', 'updatedAt'],
+                },
+                where: {
+                  [Op.or]: climbGradeRange(req.body.min, req.body.max),
+                  [Op.and]: {category: req.body.category},
+                },
+              },
+            },
+          },
+        },
+      ],
+    })
+      .then(region => {
+        res.status(200).send(regionPickClimbs(region));
+      })
+      .catch(err => res.status(400).send(err));
   },
 };
