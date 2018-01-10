@@ -131,4 +131,75 @@ describe("'regions'service", () => {
         assert.equal(err.response.status, 404);
       });
   });
+
+  it('should return climbs under given region id', async () => {
+    const subarea = await factories.create('subarea');
+    const dummy = {
+      name: 'New climb one',
+      description: 'describe',
+      grade: 'V5',
+      category: 'Boulder',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    const dummy2 = {
+      name: 'New climb two',
+      description: 'describe',
+      grade: 'V11',
+      category: 'Boulder',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/climbs')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/climbs')
+      .send(dummy2);
+
+    const dummy3 = {
+      regionId: 1,
+      min: 'V1',
+      max: 'V16',
+      category: 'Boulder',
+    };
+
+    const regionClimbs_3 = await chai
+      .request(app)
+      .post('/api/search-region-climbs')
+      .send(dummy3);
+
+    assert.equal(regionClimbs_3.body.length, 2);
+    assert.equal(regionClimbs_3.body[0].name, dummy.name);
+
+    const dummy4 = {
+      regionId: 1,
+      min: 'V6',
+      max: 'V16',
+      category: 'Boulder',
+    };
+    const regionClimbs_4 = await chai
+      .request(app)
+      .post('/api/search-region-climbs')
+      .send(dummy4);
+
+    assert.equal(regionClimbs_4.body[0].name, dummy2.name);
+  });
+
+  it('should return 400 for searching climbs without invalid params', async () => {
+    const dummy = {
+      regionId: 1,
+      max: 'V16',
+      category: 'Boulder',
+    };
+    await chai
+      .request(app)
+      .post('/api/search-region-climbs')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 400);
+      });
+  });
 });

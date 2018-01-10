@@ -36,7 +36,7 @@ module.exports = [
     name: 'The Nose',
     open: true,
     description: 'Ice cave',
-    grade: '5.14a Grade VI',
+    grade: '5.14a',
     category: 'Traditional',
     subareaId: 3,
     icons: JSON.stringify(['am-shade', 'high-ball']),

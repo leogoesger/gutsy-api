@@ -96,11 +96,12 @@ module.exports = {
       !req.body.min ||
       !req.body.max ||
       !req.body.subregionId ||
+      !req.body.category ||
       climbGradeConverter(req.body.min) > climbGradeConverter(req.body.max)
     ) {
       res.status(400).send({message: 'Wrong Information sent!'});
     }
-    return Subregion.findById(req.body.regionId, {
+    return Subregion.findById(req.body.subregionId, {
       attributes: {
         exclude: [
           'name',

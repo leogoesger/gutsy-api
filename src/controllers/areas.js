@@ -113,12 +113,13 @@ module.exports = {
     if (
       !req.body.min ||
       !req.body.max ||
-      !req.body.subregionId ||
+      !req.body.areaId ||
+      !req.body.category ||
       climbGradeConverter(req.body.min) > climbGradeConverter(req.body.max)
     ) {
       res.status(400).send({message: 'Wrong Information sent!'});
     }
-    return Area.findById(req.body.regionId, {
+    return Area.findById(req.body.areaId, {
       attributes: {
         exclude: [
           'name',

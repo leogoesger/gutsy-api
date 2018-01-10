@@ -117,12 +117,13 @@ module.exports = {
     if (
       !req.body.min ||
       !req.body.max ||
-      !req.body.subregionId ||
+      !req.body.subareaId ||
+      !req.body.category ||
       climbGradeConverter(req.body.min) > climbGradeConverter(req.body.max)
     ) {
       res.status(400).send({message: 'Wrong Information sent!'});
     }
-    return Subarea.findById(req.body.regionId, {
+    return Subarea.findById(req.body.subareaId, {
       attributes: {
         exclude: [
           'name',

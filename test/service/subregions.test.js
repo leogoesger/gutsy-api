@@ -147,4 +147,75 @@ describe("'subregions'service", () => {
         assert.equal(err.response.status, 404);
       });
   });
+
+  it('should return climbs under given subregion id', async () => {
+    const subarea = await factories.create('subarea');
+    const dummy = {
+      name: 'New climb one',
+      description: 'describe',
+      grade: 'V5',
+      category: 'Boulder',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    const dummy2 = {
+      name: 'New climb two',
+      description: 'describe',
+      grade: 'V11',
+      category: 'Boulder',
+      open: true,
+      subareaId: subarea.dataValues.id,
+    };
+    await chai
+      .request(app)
+      .post('/api/climbs')
+      .send(dummy);
+    await chai
+      .request(app)
+      .post('/api/climbs')
+      .send(dummy2);
+
+    const dummy3 = {
+      subregionId: 1,
+      min: 'V1',
+      max: 'V16',
+      category: 'Boulder',
+    };
+
+    const subregionClimbs_3 = await chai
+      .request(app)
+      .post('/api/search-subregion-climbs')
+      .send(dummy3);
+
+    assert.equal(subregionClimbs_3.body.length, 2);
+    assert.equal(subregionClimbs_3.body[0].name, dummy.name);
+
+    const dummy4 = {
+      subregionId: 1,
+      min: 'V6',
+      max: 'V16',
+      category: 'Boulder',
+    };
+    const subregionClimbs_4 = await chai
+      .request(app)
+      .post('/api/search-subregion-climbs')
+      .send(dummy4);
+
+    assert.equal(subregionClimbs_4.body[0].name, dummy2.name);
+  });
+
+  it('should return 400 for searching climbs without invalid params', async () => {
+    const dummy = {
+      subregionId: 1,
+      max: 'V16',
+      category: 'Boulder',
+    };
+    await chai
+      .request(app)
+      .post('/api/search-subregion-climbs')
+      .send(dummy)
+      .catch(err => {
+        assert.equal(err.response.status, 400);
+      });
+  });
 });
