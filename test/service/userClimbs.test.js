@@ -29,6 +29,48 @@ describe("'userClimbs'service", () => {
     assert.equal(res.body.userId, dummy.userId);
   });
 
+  it('should UPDATE userClimb if found', async () => {
+    const user = await factories.create('user');
+    const climb = await factories.create('climb');
+    const userClimbStatus = await factories.create('userClimbStatus');
+    const dummy = {
+      userId: user.dataValues.id,
+      climbId: climb.dataValues.id,
+      userClimbStatusId: userClimbStatus.dataValues.id,
+    };
+    const res = await chai
+      .request(app)
+      .post('/api/userClimbs')
+      .send(dummy);
+    assert.equal(res.body.userId, dummy.userId);
+    assert.equal(res.body.climbId, dummy.climbId);
+
+    const userClimbStatus2 = await factories.create('userClimbStatus');
+    const dummy2 = {
+      userId: user.dataValues.id,
+      climbId: climb.dataValues.id,
+      userClimbStatusId: userClimbStatus2.dataValues.id,
+    };
+    const res2 = await chai
+      .request(app)
+      .post('/api/userClimbs')
+      .send(dummy2);
+    assert.equal(res2.body.id, res.body.id);
+  });
+
+  it('should return 400 if no body and book found', async () => {
+    const dummy = {
+      userId: 1,
+      climbId: 1,
+      userClimbStatusId: 1,
+    };
+    await chai
+      .request(app)
+      .post('/api/userClimbs')
+      .send(dummy)
+      .catch(err => assert.equal(err.response.status, 400));
+  });
+
   it('should return 400', async () => {
     await chai
       .request(app)

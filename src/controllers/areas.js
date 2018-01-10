@@ -1,8 +1,16 @@
 const Op = require('sequelize').Op;
+
 const Region = require('../models').Region;
+const Subregion = require('../models').Subregion;
 const Area = require('../models').Area;
 const Subarea = require('../models').Subarea;
-const Subregion = require('../models').Subregion;
+const Climb = require('../models').Climb;
+
+import {
+  climbGradeConverter,
+  climbGradeRange,
+  areaPickClimbs,
+} from '../utils/helpers';
 
 module.exports = {
   async create(req, res) {
@@ -99,5 +107,58 @@ module.exports = {
     }).then(areas => {
       return res.status(200).send(areas);
     });
+  },
+
+  fetchClimb(req, res) {
+    if (
+      !req.body.min ||
+      !req.body.max ||
+      !req.body.areaId ||
+      !req.body.category ||
+      climbGradeConverter(req.body.min) > climbGradeConverter(req.body.max)
+    ) {
+      res.status(400).send({message: 'Wrong Information sent!'});
+    }
+    return Area.findById(req.body.areaId, {
+      attributes: {
+        exclude: [
+          'name',
+          'open',
+          'gps',
+          'createdAt',
+          'updatedAt',
+          'description',
+        ],
+      },
+      include: [
+        {
+          model: Subarea,
+          as: 'subareas',
+          attributes: {
+            exclude: [
+              'name',
+              'open',
+              'gps',
+              'description',
+              'createdAt',
+              'updatedAt',
+            ],
+          },
+          include: {
+            model: Climb,
+            as: 'climbs',
+            attributes: {
+              exclude: ['open', 'createdAt', 'updatedAt'],
+            },
+            where: {
+              [Op.or]: climbGradeRange(req.body.min, req.body.max),
+              [Op.and]: {category: req.body.category},
+            },
+          },
+        },
+      ],
+    })
+      .then(area => res.status(200).send(areaPickClimbs(area)))
+      .catch(err => res.status(400).send(err));
   },
 };

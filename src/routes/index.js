@@ -20,6 +20,7 @@ module.exports = app => {
   app.put('/api/regions/:regionId', regionsController.update);
   app.delete('/api/regions/:regionId', regionsController.delete);
   app.post('/api/search-regions', regionsController.search);
+  app.post('/api/search-region-climbs', regionsController.fetchClimb);
 
   app.post('/api/subregions', subregionsController.create);
   app.get('/api/subregions', subregionsController.list);
@@ -27,6 +28,7 @@ module.exports = app => {
   app.put('/api/subregions/:subregionId', subregionsController.update);
   app.delete('/api/subregions/:subregionId', subregionsController.delete);
   app.post('/api/search-subregions', subregionsController.search);
+  app.post('/api/search-subregion-climbs', subregionsController.fetchClimb);
 
   app.post('/api/areas', areasController.create);
   app.get('/api/areas', areasController.list);
@@ -34,6 +36,7 @@ module.exports = app => {
   app.put('/api/areas/:areaId', areasController.update);
   app.delete('/api/areas/:areaId', areasController.delete);
   app.post('/api/search-areas', areasController.search);
+  app.post('/api/search-area-climbs', areasController.fetchClimb);
 
   app.post('/api/subareas', subareasController.create);
   app.get('/api/subareas', subareasController.list);
@@ -41,6 +44,7 @@ module.exports = app => {
   app.put('/api/subareas/:subareaId', subareasController.update);
   app.delete('/api/subareas/:subareaId', subareasController.delete);
   app.post('/api/search-subareas', subareasController.search);
+  app.post('/api/search-subarea-climbs', subareasController.fetchClimb);
 
   app.post('/api/climbs', climbsController.create);
   app.get('/api/climbs/:climbId', climbsController.show);
