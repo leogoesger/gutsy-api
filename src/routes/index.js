@@ -14,6 +14,9 @@ const authorBooksController = require('../controllers').authorBooks;
 const bookClimbsController = require('../controllers').bookClimbs;
 
 module.exports = app => {
+  app.get('/', () => {
+    console.log('hello');
+  });
   app.post('/api/regions', regionsController.create);
   app.get('/api/regions', regionsController.list);
   app.get('/api/regions/:regionId', regionsController.show);
