@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 
 dotenv.config({path: '.env'});
 
-const port = parseInt(process.env.PORT, 10) || 8000;
+const port = 8000;
 app.set('port', port);
 
 const server = http.createServer(app);
