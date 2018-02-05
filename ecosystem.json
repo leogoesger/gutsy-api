@@ -1,7 +1,7 @@
 {
   "name": "gutsy_api",
   "args": ["--toto=heya coco", "-d", "1"],
-  "script": "/gutsy-api/src/index.js",
+  "script": "./src/index.js",
   "node_args": ["--harmony", " --max-stack-size=102400000"],
   "log_date_format": "YYYY-MM-DD HH:mm Z",
   "watch": false,
