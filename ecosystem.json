@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "gutsy",
+      "name": "gutsy-api",
       "exec_interpreter": "./node_modules/.bin/babel-node",
       "script": "src/index.js",
       "watch": true,
