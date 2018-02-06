@@ -86,7 +86,7 @@ describe("'userBooks'service", () => {
     await factories.create('userBook');
     const res = await chai
       .request(app)
-      .get('/users/me')
+      .get('/api/users/me')
       .set('gutsyJwt', getToken());
     assert.equal(res.body.books.length, 1);
   });

@@ -73,8 +73,8 @@ module.exports = app => {
 
   app.post('/api/bookClimbs', bookClimbsController.create);
 
-  app.post('/signup', usersController.signUp);
-  app.post('/login', usersController.login);
-  app.get('/users/me', authenticate, usersController.getMe);
+  app.post('/api/signup', usersController.signUp);
+  app.post('/api/login', usersController.login);
+  app.get('/api/users/me', authenticate, usersController.getMe);
   // app.put('/update', authenticate, usersController.update);
 };

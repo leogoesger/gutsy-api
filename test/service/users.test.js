@@ -24,7 +24,7 @@ describe("'users'service", () => {
     };
     const res = await chai
       .request(app)
-      .post('/signup')
+      .post('/api/signup')
       .send(dummy);
     assert.equal(res.status, 200);
   });
@@ -42,11 +42,11 @@ describe("'users'service", () => {
     };
     await chai
       .request(app)
-      .post('/signup')
+      .post('/api/signup')
       .send(dummy);
     const res = await chai
       .request(app)
-      .post('/login')
+      .post('/api/login')
       .send({email: 'badass@ass.com', password: 'badass'});
     assert.equal(res.status, 200);
   });
@@ -64,11 +64,11 @@ describe("'users'service", () => {
     };
     const res = await chai
       .request(app)
-      .post('/signup')
+      .post('/api/signup')
       .send(dummy);
     const res_2 = await chai
       .request(app)
-      .get('/users/me')
+      .get('/api/users/me')
       .set('gutsyJwt', res.body.gutsyJwt);
     assert.equal(res_2.body.firstName, dummy.firstName);
   });

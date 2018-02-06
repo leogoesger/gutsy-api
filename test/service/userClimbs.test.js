@@ -95,7 +95,7 @@ describe("'userClimbs'service", () => {
       .send({userId: 1, climbId: 3});
     const res = await chai
       .request(app)
-      .get('/users/me')
+      .get('/api/users/me')
       .set('gutsyJwt', getToken());
     assert.equal(res.body.climbs.length, 3);
   });
