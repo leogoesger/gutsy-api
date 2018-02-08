@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use((req, res, next) => {
   const allowed_header = [
     'http://localhost:4000',
-    'www.gutsy.cc',
+    'http://www.gutsy.cc',
     'http://gutsy.cc/',
   ];
   const origin = req.headers.origin;
