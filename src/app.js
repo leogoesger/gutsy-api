@@ -12,6 +12,8 @@ app.use((req, res, next) => {
     'http://localhost:4000',
     'http://www.gutsy.cc',
     'http://gutsy.cc/',
+    'https://www.gutsy.cc',
+    'https://gutsy.cc/',
   ];
   const origin = req.headers.origin;
   if (allowed_header.indexOf(origin) > -1) {
