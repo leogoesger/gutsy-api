@@ -59,6 +59,14 @@ For more information on all the things you can do with Sequelize CLI visit [sequ
 
 ```
 
+## Deployment
+
+```
+ssh leo@
+nano /etc/sites-available/default/
+pm2 start ecosystem.json --env production
+
+```
 
 ## Options
 
