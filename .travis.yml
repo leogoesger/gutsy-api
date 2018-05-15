@@ -1,12 +1,13 @@
 language: node_js
 node_js:
-  - "node"
+  - "8"
 addons:
     postgresql: "9.6"
 services:
   - postgresql
 before_script:
   - psql -c 'CREATE DATABASE gutsy_test;' -U postgres
+  - yarn global add node-gyp
 script:
   - yarn lint
   - yarn test-cover
